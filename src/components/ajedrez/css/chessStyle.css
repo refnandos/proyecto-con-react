@@ -1,0 +1,82 @@
+.Tablero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 80vw;
+    height: 80vw;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.Cuadrado{
+    width: 12.5%;
+    height: 12.5%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.Negro {
+    background-color: rgb(87, 72, 4);
+}
+
+.Blanco{
+    background-color: #f0d9b5;
+}
+
+.coordenada {
+    height: auto;
+    display: flex;
+    bottom: 4%;
+    left: 4%;
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.textoBlanco{
+    color: rgb(87, 72, 4);
+    
+}
+.textoNegro{
+    
+    color: #f0d9b5;
+
+}
+
+.rango{
+    top: 4%;
+    left: 4%;
+    right:  auto;
+}
+
+.pieza{
+    width: 100%;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.pieza img{
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+
+@media (min-width:600px) {
+    .Tablero{
+        width: 600px;
+        height: 600px;
+    }
+}
+@media (min-width:600px) {
+    .coordenada{
+        font-size: 8px;
+    }
+}

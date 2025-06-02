@@ -1,5 +1,10 @@
+import {Tablero} from "./ajedrez/Tablero"
+
+
 export const Contact = () => {
   return (
-    <div>Contact</div>
+    <>
+      <Tablero />
+    </>
   )
 }

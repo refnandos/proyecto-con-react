@@ -15,7 +15,7 @@ export const Navbar = ({show}) => {
                 <Link to="/about"><IoPerson /> Sobre Nosotros</Link>
             </li>
             <li>
-                <Link href="/">Contactanos</Link>
+                <Link to="/Contact">Contactanos</Link>
             </li>
         </ul>
     </div>
