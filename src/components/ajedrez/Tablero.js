@@ -1,4 +1,4 @@
-
+import { useEffect } from "react";
 import "./css/chessStyle.css";
 import torreNegro from "./piezas/Torre-Negro.png";
 import torreBlanco from "./piezas/Torre-Blanco.png";
@@ -15,6 +15,25 @@ import PeonBlanco from "./piezas/Peon-Blanco.png";
 
 
 export const Tablero = () => {
+
+  useEffect(() => {
+          const script = document.createElement("script");
+          script.src="/main.js";
+          script.async = true;
+          document.body.appendChild(script);
+
+          script.onload = () => {
+            if(typeof window.main --- "function"){
+              window.main();
+            }
+          };
+
+          // return () => {
+          //   script.remove();
+          // };
+      }, []);
+  
+  
   return (
     <div className="Tablero">
         <div className="Cuadrado Blanco">

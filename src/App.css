@@ -49,39 +49,6 @@ header h1 {
     overflow: hidden;
 }
 
-/*Sidebar css -------------------------*/
-/* 
-.sidebar {
-    width: 220px;
-    background-color: #1c1c1c;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: 100%;
-}
-
-.sidebar h2 {
-    color: #00ff75;
-    margin: 0;
-    margin-bottom: 10px;
-}
-
-.sidebar a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #00ff75;
-    color: black;
-} */
-
-
-
 /*Navbar css ----------------------------------*/
 
 .sidenav{
