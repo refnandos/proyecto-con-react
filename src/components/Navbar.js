@@ -17,6 +17,9 @@ export const Navbar = ({show}) => {
             <li>
                 <Link to="/Contact">Contactanos</Link>
             </li>
+            <li>
+                <Link to="/Datosuser">Datos usuarios</Link>
+            </li>
         </ul>
     </div>
   )
