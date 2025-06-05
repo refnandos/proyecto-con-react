@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Login() {
+    //datos a solicitar para verificar
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    //muestra el error en caso de
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,10 +18,13 @@ function Login() {
         try {
             const response = await fetch('http://localhost/backend/login/login.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
+                headers: {'Content-Type': 'application/json',},
+
+                body: JSON.stringify({ 
+                    email, 
+                    password
+                 }),
+
             });
 
             const data = await response.json();
@@ -27,43 +35,40 @@ function Login() {
 
 
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            navigate('/dashboard'); 
+            navigate('/Home'); 
+            window.location.reload();
         } catch (err) {
             setError(err.message);
         }
     };
 
+
+
     return (
-        <div >
+
+        <div className="Formulario">
+            <div className='contenido-formulario'>
+
             <h2>Iniciar Sesión</h2>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit}>
-                <div >
-                    <input
-                        type="email"
-                        placeholder="Correo electrónico"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        
-                    />
+                <div className='login-correo'>
+                    <label htmlFor="correo">Email </label> <br />
+                    <input name="correo" type="email" placeholder="Correo electrónico" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 </div>
-                <div >
-                    <input
-                        type="password"
-                        placeholder="Contraseña"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        
-                    />
+                <div className='login-contraseña'>
+                    <label htmlFor="contraseña">contraseña </label> <br />
+                    <input name="contraseña" type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
-                <button 
-                    type="submit"
-        >
-                    Ingresar
-                </button>
+
+                <div>
+                <button type="submit" className='btn'>Ingresar</button>
+
+                <button className='cambio'><Link to="/register">NO tienes una cuenta?</Link></button>
+                </div>
             </form>
+
+            </div>
         </div>
     );
 }

@@ -6,21 +6,26 @@ import { IoPerson } from "react-icons/io5";
 export const Navbar = ({show}) => {
   return (
     <div className={show ? "sidenav active" : "sidenav"} >
-        <img src={logo} alt="Logo" className="logo" />
-        <ul>
-            <li>
-                <Link to='/'><FaHome /> Home</Link>
-            </li>
-            <li>
-                <Link to="/about"><IoPerson /> Sobre Nosotros</Link>
-            </li>
-            <li>
-                <Link to="/Contact">Contactanos</Link>
-            </li>
-            <li>
-                <Link to="/Datosuser">Datos usuarios</Link>
-            </li>
-        </ul>
+        <div className="contenido-sidenav">
+            <img src={logo} alt="Logo" className="logo" />
+            <ul>
+                <li>
+                    <Link to='/'><FaHome /> Home</Link>
+                </li>
+                <li>
+                    <Link to="/about"><IoPerson /> Sobre Nosotros</Link>
+                </li>
+                <li>
+                    <Link to="/Juegos">juegos</Link>
+                </li>
+                <li>
+                    <Link to="/Puntuaciones">Tabla de puntuacion</Link>
+                </li>
+                <li>
+                    <Link to="/Datosuser">Usuarios</Link>
+                </li>
+            </ul>
+        </div>
     </div>
   )
 }

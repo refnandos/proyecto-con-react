@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./datosuser.css";
 
 export const Datosuser = () => {
   
@@ -6,7 +7,7 @@ export const Datosuser = () => {
   
     //USO DE FETCH EN LOCAL
     useEffect(() => {
-      fetch("http://localhost/backend/api/usuarios.php")
+      fetch("http://localhost/backend/usuarios.php")
         .then((res) => res.json())
         .then((data) => setUsuarios(data))
         .catch((err) => console.error("Error al conectar con PHP:", err));
@@ -20,13 +21,27 @@ export const Datosuser = () => {
     // }, []);
   
     return (
-      <div className="p-4">
-        <h1 className="text-xl font-bold mb-2">Lista de Usuarios</h1>
-        <ul>
-          {usuarios.map((u) => (
-            <li key={u.id}>{u.nombre} - {u.email}</li>
-          ))}
-        </ul>
-      </div>
+
+          <div>
+            <h1 >Lista de Usuarios</h1>
+              
+              <table className="info-usuarios">
+                  <thead>
+                    <tr>
+                      <th>Usuario</th>
+                      <th>Email</th>
+                    </tr>
+                  </thead>
+                  {usuarios.map((u) => (
+                    <tr key={u.id_usuario}>
+                      <td >{u.nombre_usuario} </td>
+                      <td >{u.correo_electronico}</td>
+                    </tr>
+                  
+                ))}
+              </table>
+              
+          </div>
+
     );
 }

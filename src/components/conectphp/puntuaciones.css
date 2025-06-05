@@ -1,0 +1,55 @@
+.contenedor-puntuaciones {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  
+}
+
+/* filtros de la tabla de puntuaciones de jugadores */
+
+.filtros {
+  margin: 20px 0;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.filtros select, .filtros button {
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+/* **************************** */
+
+
+.tabla-puntuaciones {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 50px;
+}
+
+.tabla-puntuaciones th, .tabla-puntuaciones td {
+  padding: 12px;
+  text-align: right;
+  border-bottom: 1px solid #00ff75;
+}
+
+.tabla-puntuaciones th {
+  background-color: #222;
+  font-weight: bold;
+}
+
+.tabla-puntuaciones tr:hover {
+  background-color: #302f2f;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.error {
+  color: #d32f2f;
+}
