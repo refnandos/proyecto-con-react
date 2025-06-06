@@ -35,7 +35,7 @@ function Login() {
 
 
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            navigate('/Home'); 
+            navigate('/'); 
             window.location.reload();
         } catch (err) {
             setError(err.message);

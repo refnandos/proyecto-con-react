@@ -54,20 +54,20 @@ function App() {
         <Routes>
             <Route path='/Register' exact={true} Component={Register} />
             <Route path='/Login' exact={true} Component={Login} />
-        </Routes>
+        
 
         {/* Sidebar links */}
-          <Routes>
+          
               <Route path='/' exact={true} Component={Home} />
               <Route path='/about' exact={true} Component={About} />
               <Route path='/Juegos' exact={true} Component={Juegos} />
               <Route path='/Puntuaciones' exact={true} Component={Puntuaciones} />
               <Route path='/Datosuser' exact={true} Component={Datosuser} />
               <Route path='/ContSnake' exact={true} Component={ContSnake} />
-          </Routes>
+          
 
         {/* Sidebar links */}
-        <Routes>
+        
             <Route path='/about' exact={true} Component={About} />
             <Route path='/Contact' exact={true} Component={Contact} />
         </Routes>

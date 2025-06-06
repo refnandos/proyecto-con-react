@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 import "./snake.css";
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 export const JuegoSnake = () => {
+
+    const id_usuario = (JSON.parse(localStorage.getItem('usuario')).id) ;
+    const id_juego = 3;
+    const [puntaje_partida, setPuntaje] = useState(100);
+
    const canvasRef = useRef(null);
    /*tamaño de la serpiente al empezar el juego */
   const [snake, setSnake] = useState([
@@ -78,6 +85,7 @@ export const JuegoSnake = () => {
         if (head.x === food.x && head.y === food.y) {
           setScore(prev => prev + 100);
           setFood(generarComida());
+          setPuntaje(score);
 
         } else {
 
@@ -133,9 +141,41 @@ export const JuegoSnake = () => {
 
   }, [snake, food]);
 
+
+
+
+  useEffect(() => {
+  if (gameOver) {
+    const enviarResultado = async () => {
+      try {
+        const response = await fetch('http://localhost/backend/insertar/insertarPartidas.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id_usuario, id_juego, puntaje_partida }), 
+        
+        });
+
+        const result = await response.json();
+        console.log("victoria?");
+        console.log('Resultado guardado:', result);
+      } catch (error) {
+        console.log("derrota?");
+        console.error('Error al enviar los datos:', error);
+      }
+    };
+
+    enviarResultado();
+  }
+}, [gameOver]);
+
+
+
+
+
   // Controles con teclado
   useEffect(() => {
-    console.log({direction});
     const handleKeyDown = (e) => {
       switch (e.key) {
         case 'ArrowUp':
@@ -173,33 +213,7 @@ export const JuegoSnake = () => {
   };
   
 /*Meter punteje en base de datos */
-  useEffect(() => {
-  if (gameOver) {
-    const enviarResultado = async () => {
-      try {
-        const response = await fetch('https://localhost/ruta/guardar_partida.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            usuario: 'nombre_de_usuario',      // reemplázalo con el nombre del usuario real
-            juego: 'snake',
-            fecha: new Date().toISOString(),  // formato estándar
-            puntuacion: score
-          }),
-        });
-
-        const result = await response.json();
-        console.log('Resultado guardado:', result);
-      } catch (error) {
-        console.error('Error al enviar los datos:', error);
-      }
-    };
-
-    enviarResultado();
-  }
-}, [gameOver]);
+  
 
   return (
     <div className="juegoSerpiente" >
