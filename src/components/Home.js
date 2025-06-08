@@ -1,23 +1,30 @@
-import { useState } from 'react';
-import { useEffect } from "react";
 
+import {Juegos} from "./Juegos";
+import image from "./recursos/image.png";
 
 
 export const Home = () => {
-  const [id_usuario, setId] = useState(false);
-
-  useEffect(() => {
-      const user = JSON.parse(localStorage.getItem('usuario'));
-      if(user){ setId(user)}
-    }, []);
 
   return (
     
-      <div className="main">
-        {JSON.parse(localStorage.getItem('usuario')).id}
-        <p>{id_usuario.id}</p>
-        <br />
+      <>
+        
+        <section className='main'>
+          <div className="introduccion">
+            <img src={image} alt="Home-Imagen"  />
+              <div className="textoimg" >
+              <div>
+                  <h2>Bienvenido a la Zona de juegos para competir por puntajes en los diferentes juegos disponibles</h2>
+              </div>
+          </div>
+          
+</div>
 
-      </div>
+
+        </section>
+        <div className='main'>
+          <Juegos/>
+        </div>
+      </>
   )
 }

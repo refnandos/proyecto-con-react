@@ -6,19 +6,21 @@ export const Datosuser = () => {
       const [usuarios, setUsuarios] = useState([]);
   
     //USO DE FETCH EN LOCAL
-    // useEffect(() => {
-    //   fetch("http://localhost/backend/usuarios.php")
-    //     .then((res) => res.json())
-    //     .then((data) => setUsuarios(data))
-    //     .catch((err) => console.error("Error al conectar con PHP:", err));
-    // }, []); 
+    useEffect(() => {
+      fetch("http://localhost/backend/usuarios.php")
+        .then((res) => res.json())
+        .then((data) => setUsuarios(data))
+        .catch((err) => console.error("Error al conectar con PHP:", err));
+    }, []); 
+    
   
       // USO DE FETHCH EN SERVIDOR APARTE
-      useEffect(() => {
-      fetch("https://if0_39152826.epizy.com/api/usuarios.php")
-        .then(res => res.json())
-        .then(data => setUsuarios(data));
-    }, []);
+//     useEffect(() => {
+//   fetch("http://csaualgames.byethost31.com/backend/api/usuarios.php")
+//     .then((res) => res.json())
+//     .then((data) => setUsuarios(data))
+//     .catch((err) => console.error("Error al conectar:", err));
+// }, []);
   
     return (
 
@@ -32,13 +34,15 @@ export const Datosuser = () => {
                       <th>Email</th>
                     </tr>
                   </thead>
+                  <tbody>
                   {usuarios.map((u) => (
                     <tr key={u.id_usuario}>
                       <td >{u.nombre_usuario} </td>
                       <td >{u.correo_electronico}</td>
                     </tr>
                   
-                ))}
+                    ))}
+                    </tbody>
               </table>
               
           </div>
