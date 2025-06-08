@@ -1,38 +1,296 @@
-.App {
-  text-align: center;
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    
+}
+/*********************************************/
+/* header */
+header {
+    background-color: #1c1c1c;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #00ff75;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header h1 {
+    margin: 0;
+    color: #00ff75;
+    font-size: 24px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (max-width: 767px) {
+  header {
+    padding: 0.5rem ;
+    font-size: 0.9rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/******************************************/
+/*Footer*/
+footer {
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1c1c1c;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #00ff75;
+    height: 50px;
+    z-index: 0;
+    
+}
+
+footer ul li a{
+    margin: 0;
+    color: #00ff75;
+    font-size: 24px;
+    text-decoration: none;
+
+}
+
+@media (max-width: 767px) {
+  footer {
+    padding: 0.5rem ;
+    font-size: 0.5rem;
+  }
+}
+
+/* ****************************** */
+/* Botones header */
+
+.auth-buttons button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    list-style-type: none;
+}
+
+.btn-register {
+    background-color: yellow;
+}
+
+.btn-login {
+    background-color: #00ff75;
+}
+.btn-register a{
+  color: black;
+    text-decoration: none;
+}
+
+.btn-login a{
+    color: black;
+    text-decoration: none;
+}
+
+/* ****************************** */
+/*Navbar css ----------------------------------*/
+
+.sidenav{
+  width: 240px;
+  background-color: #1b1b1b;
+  position: fixed;
+  height: 93vh;
+  padding: 0 30px;
+  left: -100%;
+  transition: all 0.3s;
+  border-right: 3px solid #00ff75;
+  z-index: 50;
+}
+
+.sidenav .contenido-sidenav{
+  padding-top: 2em;
+}
+
+
+.sidenav.active{
+  left: 0;
+  
+}
+
+.logo {
+  width: 50px;
+}
+
+.sidenav ul{
+  padding: 0;
+}
+
+.sidenav ul li{
+  list-style-type: none;
+  margin: 25px 0;
+}
+
+.sidenav ul li a{
+  color: #00ff75;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+  
+  }
+
+
+.sidenav ul li a:hover,.sidenav ul li a.active {
+  background: #302f2f;
+}
+
+header svg{
+  font-size: 40px;
+}
+
+/* ************************* */
+/* Formularios */
+.Formulario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 25px;
+    color: #e1e1e1bd;
+}
+
+form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  flex-direction: column;
+  color: black;
+  background: #e1e1e1bd;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px; 
+  
 }
 
-.App-link {
-  color: #61dafb;
+.Formulario .btn{
+  font-size: 0.9rem;
+  margin-top: 20px;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #00d162;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.Formulario .cambio{
+  font-size: 0.9rem;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #ced100;
+}
+
+.Formulario .btn:hover{
+  background-color: #00ff40;
+}
+
+@media (max-width: 767px) {
+  .Formulario {
+    padding: 0.5rem ;
+    font-size: 0.9rem;
   }
 }
+
+/* ************************* */
+/* menu Juegos */
+.juegos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 100px;
+}
+
+.juegos-titulo {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.juegos-container div{
+  margin: 20px;
+  padding: 30px;
+  flex: 1 1 calc(25% - 20px); /* 4 columnas por defecto */
+  min-width: 200px;
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.juegos-container .jugar{
+  font-size: 0.9rem;
+  margin-top: 20px;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #00d162;
+}
+
+.juegos-container a{
+  text-decoration: none;
+  color: rgb(123, 255, 0);
+}
+
+.juegos-container div:hover{
+  transform: translateY(-5px);
+}
+
+@media (max-width: 480px) {
+  .juegos-container div {
+    flex: 1 1 90%; /* 1 columna */
+    max-width: 50%;
+  }
+  
+  .juegos-container div {
+    height: 200px; /* Más grande para móviles */
+  }
+}
+
+
+
+
+
+/* ************************* */
+/* util para mantener una tamaño concreto */
+.contenedor-comun {
+    height: 79vh;
+    
+}
+
+/* ************************* */
+/* esconde un componente */
+.hidden{
+  display: none;
+}
+
+

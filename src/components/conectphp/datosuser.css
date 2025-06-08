@@ -1,0 +1,20 @@
+.info-usuarios {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 50px;
+}
+
+.info-usuarios th, .info-usuarios td {
+  padding: 12px;
+  text-align: right;
+  border-bottom: 1px solid #00ff75;
+}
+
+.info-usuarios th {
+  background-color: #222;
+  font-weight: bold;
+}
+
+.info-usuarios tr:hover {
+  background-color: #302f2f;
+}

@@ -1,24 +1,87 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { PrimerComponente } from './components/PrimerComponente';
-import { SegundoComponente } from './components/SegundoComponente';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
+
+import { useEffect } from "react";
+
+/*componentes */
+import { Juegos } from './components/Juegos';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
+import { Navbar } from './components/Navbar';
+import { Home } from './components/Home';
+import { About } from './components/About';
+import { Contact } from './components/Contact';
+import { Datosuser } from './components/conectphp/Datosuser';
+import { Puntuaciones } from './components/conectphp/Puntuaciones';
+import { ContSnake } from './components/contenedorjuegos/ContSnake';
+/*consultas */
+import Login from './components/login/Login';
+import Register from './components/register/Register';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        
-        <PrimerComponente>
-        </PrimerComponente>
+  const [showNav, setShowNav] = useState(true);
+  const [islogged, setIsLoggedIn] = useState(false);
 
-        <SegundoComponente>
+  useEffect(() => {
+    const user = localStorage.getItem("usuario");
+    if(user){ setIsLoggedIn(true)}else{setIsLoggedIn(false)}
+  }, []);
+
+
+  return (
+    <>
+      
+      <Router>
+
+        <Header show={islogged}>
+          <GiHamburgerMenu onClick={() => setShowNav(!showNav)}/>
+        </Header>
+
+        
+        
+
+
+        {/* <Sidebar /> */}
+        <Navbar show={showNav} />
+
+        <div className='contenedor-comun'>
+        {/* botones registro */}
+        <Routes>
+            <Route path='/Register' exact={true} Component={Register} />
+            <Route path='/Login' exact={true} Component={Login} />
+        
+
+        {/* Sidebar links */}
           
-        </SegundoComponente>
+              <Route path='/' exact={true} Component={Home} />
+              <Route path='/about' exact={true} Component={About} />
+              <Route path='/Juegos' exact={true} Component={Juegos} />
+              <Route path='/Puntuaciones' exact={true} Component={Puntuaciones} />
+              <Route path='/Datosuser' exact={true} Component={Datosuser} />
+              <Route path='/ContSnake' exact={true} Component={ContSnake} />
+          
+
+        {/* Sidebar links */}
         
-        
-      </header>
-    </div>
+            <Route path='/about' exact={true} Component={About} />
+            <Route path='/Contact' exact={true} Component={Contact} />
+        </Routes>
+        </div>
+
+
+
+
+        <Footer/>
+
+      </Router>
+
+
+    </>
   );
 }
 
