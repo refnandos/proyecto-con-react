@@ -2,7 +2,7 @@
 import './App.css';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 import { useEffect } from "react";
@@ -16,10 +16,11 @@ import { Home } from './components/Home';
 import { Datosuser } from './components/conectphp/Datosuser';
 import { Puntuaciones } from './components/conectphp/Puntuaciones';
 
-    /* jUEGOS */
-    import { ContSnake } from './components/contenedorjuegos/ContSnake';
-    import {ContTresRaya} from './components/contenedorjuegos/ContTresRaya';
-    import { ContJuegoEsquivar } from "./components/contenedorjuegos/ContJuegoEsquivar";
+/* jUEGOS */
+import { ContSnake } from './components/contenedorjuegos/ContSnake';
+import { ContTresRaya } from './components/contenedorjuegos/ContTresRaya';
+import { ContJuegoEsquivar } from "./components/contenedorjuegos/ContJuegoEsquivar";
+import { Tableroinicial } from './components/ajedrezreact/Tableroinicial';
 
 /*consultas */
 import Login from './components/login/Login';
@@ -32,57 +33,54 @@ function App() {
 
   useEffect(() => {
     const user = localStorage.getItem("usuario");
-    if(user){ setIsLoggedIn(true)}else{setIsLoggedIn(false)}
+    if (user) { setIsLoggedIn(true) } else { setIsLoggedIn(false) }
   }, []);
 
 
   return (
     <>
-      
+
       <Router>
 
         <Header logged={islogged}>
-          <GiHamburgerMenu onClick={() => setShowNav(!showNav)}/>
+          <GiHamburgerMenu onClick={() => setShowNav(!showNav)} />
         </Header>
-
-        
-        
 
 
         {/* <Sidebar /> */}
-        <Navbar show={showNav} logged={islogged}/>
+        <Navbar show={showNav} logged={islogged} />
 
         <div className='contenedor-comun'>
-        {/* botones registro */}
-        <Routes>
+          {/* botones registro */}
+          <Routes>
             <Route path='/Register' exact={true} Component={Register} />
             <Route path='/Login' exact={true} Component={Login} />
-        
 
-        {/* Sidebar links */}
-          
-              <Route path='/' exact={true} Component={Home} />
-              <Route path='/Juegos' exact={true} Component={Juegos} />
-              <Route path='/Puntuaciones' exact={true} Component={Puntuaciones} />
-              <Route path='/Datosuser' exact={true} Component={Datosuser} />
 
-        {/* contenedores juegos */}
-              <Route path='/ContSnake' exact={true} Component={ContSnake} />
-              <Route path='/ContTresRaya' exact={true} Component={ContTresRaya} />
-              <Route path='/ContJuegoEsquivar' exact={true} Component={ContJuegoEsquivar} />
-          
-          
+            {/* Sidebar links */}
 
-        {/* Sidebar links */}
-        
             <Route path='/' exact={true} Component={Home} />
-        </Routes>
+            <Route path='/Juegos' exact={true} Component={Juegos} />
+            <Route path='/Puntuaciones' exact={true} Component={Puntuaciones} />
+            <Route path='/Datosuser' exact={true} Component={Datosuser} />
+
+            {/* contenedores juegos */}
+            <Route path='/ContSnake' exact={true} Component={ContSnake} />
+            <Route path='/ContTresRaya' exact={true} Component={ContTresRaya} />
+            <Route path='/ContJuegoEsquivar' exact={true} Component={ContJuegoEsquivar} />
+            <Route path='/Tableroinicial' exact={true} Component={Tableroinicial} />
+
+
+            {/* Sidebar links */}
+
+            <Route path='/' exact={true} Component={Home} />
+          </Routes>
         </div>
 
 
 
 
-        <Footer logged={islogged}/>
+        <Footer logged={islogged} />
 
       </Router>
 
