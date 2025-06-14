@@ -9,7 +9,10 @@ import {
 } from './moveCalculations';
 
 
-
+import { 
+  isSquareEmpty, 
+  isPathClear 
+} from './moveCalculations';
 import { calculateMoves } from './moveCalculations';
 import { isKingInCheck } from './checkLogic';
 import { deepCopyArray } from '../utils/helpers';
@@ -181,17 +184,17 @@ const getCastleMoves = (kingSquareId, pieceColor, board, castlingAvailability) =
 };
 
 
-const isPathClear = (kingSquareId, rookSquareId, board) => {
-  const [kFile, kRank] = [kingSquareId[0], kingSquareId[1]];
-  const [rFile, rRank] = [rookSquareId[0], rookSquareId[1]];
-  const fileStep = kFile < rFile ? 1 : -1;
+// export const isPathClear = (kingSquareId, rookSquareId, board) => {
+//   const [kFile, kRank] = [kingSquareId[0], kingSquareId[1]];
+//   const [rFile, rRank] = [rookSquareId[0], rookSquareId[1]];
+//   const fileStep = kFile < rFile ? 1 : -1;
 
-  for (let file = kFile.charCodeAt(0) + fileStep; file !== rFile.charCodeAt(0); file += fileStep) {
-    const square = `${String.fromCharCode(file)}${kRank}`;
-    if (!isSquareEmpty(square, board)) return false;
-  }
-  return true;
-};
+//   for (let file = kFile.charCodeAt(0) + fileStep; file !== rFile.charCodeAt(0); file += fileStep) {
+//     const square = `${String.fromCharCode(file)}${kRank}`;
+//     if (!isSquareEmpty(square, board)) return false;
+//   }
+//   return true;
+// };
 
 
 // Filtra movimientos que dejarían al rey en jaque

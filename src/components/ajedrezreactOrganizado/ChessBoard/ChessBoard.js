@@ -131,6 +131,7 @@ import {
 } from '../GameLogic/moveLogic';
 import { getPieceAtSquare } from '../GameLogic/checkLogic';
 import {ChessSquare} from './ChessSquare';
+import {initialGameState } from '../GameLogic/gameSetup';
 
 import './styles.css';
 
@@ -139,6 +140,7 @@ export const ChessBoard = () => {
     const [validMoves, setValidMoves] = useState([]);
     const [boardState, setBoardState] = useState(initialBoardSetup());
     const [isWhiteTurn, setIsWhiteTurn] = useState(true);
+    
     const [gameState, setGameState] = useState({
         ...initialGameState(),
         board: initialBoardSetup()

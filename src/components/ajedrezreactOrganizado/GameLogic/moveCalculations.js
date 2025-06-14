@@ -388,7 +388,7 @@ export const isValidSquare = (squareId) => {
 /**
  * Verifica si una casilla está vacía
  */
-const isSquareEmpty = (squareId, board) => {
+export const isSquareEmpty = (squareId, board) => {
   const square = board.find(sq => sq.squareId === squareId);
   return square?.pieceColor === 'blank';
 };
@@ -399,6 +399,19 @@ const isSquareEmpty = (squareId, board) => {
 const isOpponentPiece = (squareId, pieceColor, board) => {
   const square = board.find(sq => sq.squareId === squareId);
   return square?.pieceColor !== 'blank' && square?.pieceColor !== pieceColor;
+};
+
+
+export const isPathClear = (kingSquareId, rookSquareId, board) => {
+  const [kFile, kRank] = [kingSquareId[0], kingSquareId[1]];
+  const [rFile, rRank] = [rookSquareId[0], rookSquareId[1]];
+  const fileStep = kFile < rFile ? 1 : -1;
+
+  for (let file = kFile.charCodeAt(0) + fileStep; file !== rFile.charCodeAt(0); file += fileStep) {
+    const square = `${String.fromCharCode(file)}${kRank}`;
+    if (!isSquareEmpty(square, board)) return false;
+  }
+  return true;
 };
 
 /**
