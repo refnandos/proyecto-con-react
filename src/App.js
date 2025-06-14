@@ -21,6 +21,8 @@ import { ContSnake } from './components/contenedorjuegos/ContSnake';
 import { ContTresRaya } from './components/contenedorjuegos/ContTresRaya';
 import { ContJuegoEsquivar } from "./components/contenedorjuegos/ContJuegoEsquivar";
 import { Tableroinicial } from './components/ajedrezreact/Tableroinicial';
+import { ChessBoard } from './components/ajedrezreactOrganizado/ChessBoard/ChessBoard';
+import { ContenedorChessordenado } from './components/contenedorjuegos/ContenedorChessordenado';
 
 /*consultas */
 import Login from './components/login/Login';
@@ -69,6 +71,7 @@ function App() {
             <Route path='/ContTresRaya' exact={true} Component={ContTresRaya} />
             <Route path='/ContJuegoEsquivar' exact={true} Component={ContJuegoEsquivar} />
             <Route path='/Tableroinicial' exact={true} Component={Tableroinicial} />
+            <Route path='/ContenedorChessordenado' exact={true} Component={ContenedorChessordenado} />
 
 
             {/* Sidebar links */}

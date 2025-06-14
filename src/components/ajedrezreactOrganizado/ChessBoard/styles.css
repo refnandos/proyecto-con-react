@@ -1,0 +1,97 @@
+.chess-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.chess-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    width: min(80vw, 600px); /* Tamaño máximo del tablero */
+    height: min(80vw, 600px); /* Mantiene relación 1:1 */
+    border: 2px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Casillas del tablero */
+.light-square {
+    background-color: #f0d9b5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.dark-square {
+    background-color: #b58863;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Piezas de ajedrez */
+.piece {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    z-index: 10;
+}
+
+.piece img {
+    width: 80%; /* Controla el tamaño de la imagen */
+    height: 80%; /* Mantiene proporción */
+    object-fit: contain; /* Asegura que la imagen no se distorsione */
+    pointer-events: none; /* Permite hacer drag en toda la casilla */
+    user-select: none; /* Evita selección de texto accidental */
+}
+
+/* Efectos visuales */
+.selected {
+    background-color: rgba(20, 85, 30, 0.5) !important;
+}
+
+.valid-move {
+    background-color: rgba(20, 85, 30, 0.3);
+}
+
+.king-in-check {
+    background-color: rgba(255, 0, 0, 0.5) !important;
+}
+
+/* Coordenadas del tablero */
+.coordinate {
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.rank {
+    left: 2px;
+    top: 2px;
+}
+
+.file {
+    right: 2px;
+    bottom: 2px;
+}
+
+.light-text {
+    color: #f0d9b5;
+}
+
+.dark-text {
+    color: #b58863;
+}
+
+/* Estilo para cuando el juego termina */
+.game-over {
+    opacity: 0.8;
+    filter: grayscale(30%);
+}

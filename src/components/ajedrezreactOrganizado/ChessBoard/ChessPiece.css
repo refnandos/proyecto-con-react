@@ -1,0 +1,98 @@
+.chess-piece.dragging {
+    opacity: 0.8;
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+    z-index: 1000; 
+}
+
+.chess-piece {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    z-index: 10;
+    transition: transform 0.1s ease;
+}
+
+.chess-piece.dragging {
+    opacity: 0.8;
+    transform: scale(1.1);
+    z-index: 20;
+}
+
+.chess-piece:active {
+    cursor: grabbing;
+}
+
+.piece-image {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Efectos de hover/selección */
+.piece-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.chess-piece:hover .piece-overlay {
+    opacity: 1;
+}
+
+.chess-piece.blanco {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.chess-piece.negro {
+    filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.3));
+}
+
+/* Efecto para piezas que pueden moverse */
+.chess-piece.movable {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Efectos al arrastrar */
+.piece.dragging {
+    opacity: 0.8;
+    transform: scale(1.1);
+    z-index: 20;
+}
+
+.piece:active {
+    cursor: grabbing;
+}
+
+/* Efecto hover para piezas */
+.piece:hover {
+    transform: scale(1.05);
+    transition: transform 0.1s ease;
+}
+
+/* Sombras diferentes para piezas blancas y negras */
+.piece.blanco {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.piece.negro {
+    filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.3));
+}

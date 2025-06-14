@@ -77,6 +77,20 @@ const [islogged, setloged] = useState(false);
             </Link>
           </div>
 
+          <div className="juego3">
+            <Link to={islogged ? "/ContenedorChessordenado" : "/Login"}>
+              <div className="imagen">
+                <img src={juegoesquivar} alt="imgjuegoEsquviar" />
+              </div>
+              <div className="texto">
+                <p>Esquiva los obstaculos que llegan de todas las direcciones, el puntaje que consigues aumenta con el tiempo que te mantienes vivo.</p>
+              </div>
+              <div >
+              <button className="jugar">Jugar!</button>
+            </div>
+            </Link>
+          </div>
+
         </div>  
     </div>
   )

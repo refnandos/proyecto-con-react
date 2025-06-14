@@ -1,0 +1,115 @@
+.game-status-container {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.game-ended .status-bar {
+    background-color: #e0e0e0;
+}
+
+.player-turn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.turn-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #333;
+}
+
+.turn-indicator.blanco {
+    background-color: white;
+}
+
+.turn-indicator.negro {
+    background-color: black;
+}
+
+.game-info {
+    display: flex;
+    gap: 15px;
+}
+
+.check-warning {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.white-check {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.black-check {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.restart-button {
+    padding: 8px 15px;
+    background-color: #424242;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.restart-button:hover {
+    background-color: #616161;
+}
+
+/* Modal de fin de juego */
+.game-over-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.reset-button {
+    padding: 10px 25px;
+    margin-top: 20px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reset-button:hover {
+    background-color: #1565c0;
+}
