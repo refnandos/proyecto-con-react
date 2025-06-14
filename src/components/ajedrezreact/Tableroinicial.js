@@ -68,6 +68,7 @@ export const Tableroinicial = () => {
     const [validMoves, setValidMoves] = useState([]);
     const [alertMessage, setAlertMessage] = useState("");
     const [gameStatus, setGameStatus] = useState("playing");
+    const [kingInCheck, setKingInCheck] = useState({ white: false, black: false });
 
     const deepCopyArray = useCallback((array) => {
         return array.map(element => ({ ...element }));
@@ -314,7 +315,7 @@ export const Tableroinicial = () => {
                 if (squareContent.pieceColor !== 'blank') {
                     if (squareContent.pieceColor === opponentColor &&
                         (squareContent.pieceType === 'torre' || squareContent.pieceType === 'reina')) {
-                        console.trace("jaque en linea"+ squareContent.pieceType + " " + opponentColor + " " + currentSquareId);
+                        // console.trace("jaque en linea"+ squareContent.pieceType + " " + opponentColor + " " + currentSquareId);
                         return (true);
                     }
                     break;
@@ -342,7 +343,7 @@ export const Tableroinicial = () => {
                 if (squareContent.pieceColor !== 'blank') {
                     if (squareContent.pieceColor === opponentColor &&
                         (squareContent.pieceType === 'alfil' || squareContent.pieceType === 'reina')) {
-                        console.log("jaque en diagonal"+ squareContent.pieceType+ " " + opponentColor + " " + currentSquareId);
+                        // console.log("jaque en diagonal"+ squareContent.pieceType+ " " + opponentColor + " " + currentSquareId);
                         return (true);
                     }
                     break;
@@ -358,8 +359,7 @@ export const Tableroinicial = () => {
         for (const move of knightMoves) {
             const squareContent = getPieceAtSquare(move);
             if (squareContent.pieceColor === opponentColor && squareContent.pieceType === 'caballo') {
-                console.trace(new Date().toLocaleTimeString() +  "jaque de caballo"+ squareContent.pieceType+ " " + opponentColor + " " + squareId);
-                setAlertMessage("jaque de "+ squareContent.pieceType+ " " + opponentColor + " " + squareId);
+                // console.trace(new Date().toLocaleTimeString() +  "jaque de caballo"+ squareContent.pieceType+ " " + opponentColor + " " + squareId);
                 
                 return (true);
             }
@@ -481,42 +481,6 @@ export const Tableroinicial = () => {
     }, [getPieceAtSquare, isKingInCheck]);
 
 
-    /*movimiento en contra de jake  antiguo*/
-    // const isMoveValidAgainstCheck = useCallback((legalSquares, startingSquareId, pieceColor, pieceType) => {
-    //     const kingSquare = isWhiteTurn ? whiteKingSquare : blackKingSquare;
-    //     const filteredMoves = [];
-
-    //     legalSquares.forEach((destinationId) => {
-    //         const boardCopy = deepCopyArray(boardSquaresArray);
-    //         const currentSquare = boardCopy.find(e => e.squareId === startingSquareId);
-    //         const destinationSquare = boardCopy.find(e => e.squareId === destinationId);
-
-    //         // Simular movimiento
-    //         destinationSquare.pieceColor = currentSquare.pieceColor;
-    //         destinationSquare.pieceType = currentSquare.pieceType;
-    //         destinationSquare.pieceId = currentSquare.pieceId;
-    //         currentSquare.pieceColor = "blank";
-    //         currentSquare.pieceType = "blank";
-    //         currentSquare.pieceId = "blank";
-
-    //         let isCheck;
-    //         if (pieceType === "rey") {
-    //             isCheck = isKingInCheck(destinationId, pieceColor);
-    //         } else {
-    //             isCheck = isKingInCheck(kingSquare, pieceColor);
-    //         }
-
-    //         if (!isCheck) {
-    //             filteredMoves.push(destinationId);
-    //         }
-    //     });
-
-    //     return filteredMoves;
-    // }, [boardSquaresArray, deepCopyArray, isKingInCheck, isWhiteTurn, whiteKingSquare]);
-
-
-    // Actualización de getPossibleMoves para incluir todas las piezas
-    
     /*movimiento en contra de jake  Nuevo*/
     const isMoveValidAgainstCheck = useCallback((legalSquares, startingSquareId, pieceColor, pieceType) => {
         const kingSquare = pieceColor === 'blanco' ? whiteKingSquare : blackKingSquare;
@@ -538,10 +502,12 @@ export const Tableroinicial = () => {
         let isCheck;
         if (pieceType === "rey") {
             isCheck = isKingInCheck(destinationId, pieceColor);
-            console.trace(new Date().toLocaleTimeString() + " | isMoveValidAgainstCheck:540 | validacion de jaque rey | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
+            console.log("getPossibleMoves: 505 | " + isKingInCheck(destinationSquare.pieceId, destinationSquare.pieceColor));
+
+            // console.trace(new Date().toLocaleTimeString() + " | isMoveValidAgainstCheck:540 | validacion de jaque rey | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
         } else {
             isCheck = isKingInCheck(kingSquare, pieceColor);
-            console.trace(new Date().toLocaleTimeString() +  " | isMoveValidAgainstCheck:540 | validacion de jaque pieza:" + pieceType + " | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
+            // console.trace(new Date().toLocaleTimeString() +  " | isMoveValidAgainstCheck:540 | validacion de jaque pieza:" + pieceType + " | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
         }
         
         if (!isCheck) {
@@ -549,7 +515,7 @@ export const Tableroinicial = () => {
             
         }
         });
-                
+        
         return filteredMoves;
     }, [boardSquaresArray, deepCopyArray, isKingInCheck, whiteKingSquare, blackKingSquare]);
 
@@ -581,6 +547,7 @@ export const Tableroinicial = () => {
                 return getKingMoves(startingSquareId, pieceColor);
 
             default:
+                console.log("getPossibleMoves: 548 | " + isKingInCheck(piece.pieceId, piece.pieceColor));
                 return [];
         }
     }, [
@@ -623,6 +590,7 @@ export const Tableroinicial = () => {
         if (inCheck && possibleMoves.length === 0) {
         setGameStatus('checkmate');
         setAlertMessage(`¡Jaque mate! ${isWhiteTurn ? 'Negras' : 'Blancas'} ganan.`);
+        setKingInCheck({ white: false, black: false });
         return true;
         }
         
@@ -698,7 +666,7 @@ export const Tableroinicial = () => {
 
         const piece = getPieceAtSquare(startingSquareId);
         const destinationContent = getPieceAtSquare(destinationSquareId);
-
+        const opponentColor = piece.pieceColor === 'blanco' ? 'negro' : 'blanco';
         // Captura al paso
         if (piece.pieceType === 'peon' && destinationContent.pieceColor === 'blank' &&
             startingSquareId.charAt(0) !== destinationSquareId.charAt(0)) {
@@ -719,7 +687,7 @@ export const Tableroinicial = () => {
         // Movimiento del rey (actualizar posición)
         if (piece.pieceType === 'rey') {
             const isCheck = isKingInCheck(destinationSquareId, piece.pieceColor);
-            console.log("handleSquareDrop:723" + isCheck);
+            // console.log("handleSquareDrop:723" + isCheck);
             if (isCheck) return;
 
             // Enroque - mover la torre también
@@ -783,12 +751,32 @@ export const Tableroinicial = () => {
 
         // Actualizar el tablero
         updateBoardSquaresArray(startingSquareId, destinationSquareId);
+        //Verificar solo jaque
+        const opponentKingSquare = opponentColor === 'blanco' ? whiteKingSquare : blackKingSquare;
+        const isOpponentKingInCheck = isKingInCheck(opponentKingSquare, opponentColor);
+            console.log("rey oponente en jaque"+isOpponentKingInCheck);
+        if (isOpponentKingInCheck) {
+            setAlertMessage(`¡Jaque! El rey ${opponentColor} en ${opponentKingSquare} está en peligro`);
+            setKingInCheck(prev => ({
+                ...prev,
+                [opponentColor]: true
+            }));
+        } else {
+            setAlertMessage("");
+            setKingInCheck(prev => ({
+                ...prev,
+                [opponentColor]: false
+            }));
+        }
+
         setIsWhiteTurn(!isWhiteTurn);
         setSelectedPiece(null);
         setValidMoves([]);
 
+
         // Verificar jaque mate
         checkForGameEnd();
+        
     };
 
 
@@ -800,7 +788,7 @@ export const Tableroinicial = () => {
             
             legalSquares = isMoveValidAgainstCheck(legalSquares, squareId, piece.pieceColor, piece.pieceType);
             setValidMoves(legalSquares);
-            console.log("handlePieceDragStart:807 | pieza: " + piece.pieceType + "| movimientos disponibles |" + legalSquares);
+            console.log("handlePieceDragStart:772 | pieza: " + piece.pieceType + "| movimientos disponibles |" + legalSquares);
             e.dataTransfer.setData("text/plain", squareId);
         } else {
             e.preventDefault();
@@ -816,6 +804,11 @@ export const Tableroinicial = () => {
         const squareClass = isLight ? "Cuadrado Blanco" : "Cuadrado Negro";
         const isSelected = selectedPiece?.squareId === square.squareId;
         const isValidMove = validMoves.includes(square.squareId);
+
+        const isKingInCheckSquare = 
+        (square.pieceType === 'rey' && square.pieceColor === 'blanco' && kingInCheck.white) ||
+        (square.pieceType === 'rey' && square.pieceColor === 'negro' && kingInCheck.black);
+
 
         const rank = square.squareId.charAt(1);
         const file = square.squareId.charAt(0);
@@ -856,7 +849,7 @@ export const Tableroinicial = () => {
         return (
             <div
                 key={square.squareId}
-                className={`${squareClass} ${isSelected ? "selected" : ""} ${isValidMove ? "valid-move" : ""}`}
+                className={`${squareClass} ${isSelected ? "selected" : ""} ${isValidMove ? "valid-move" : ""} ${isKingInCheckSquare ? "king-in-check" : ""}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleSquareDrop(e, square.squareId)}
             >
