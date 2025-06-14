@@ -139,7 +139,12 @@ export const ChessBoard = () => {
     const [validMoves, setValidMoves] = useState([]);
     const [boardState, setBoardState] = useState(initialBoardSetup());
     const [isWhiteTurn, setIsWhiteTurn] = useState(true);
-    
+    const [gameState, setGameState] = useState({
+        ...initialGameState(),
+        board: initialBoardSetup()
+    });
+
+
     const handlePieceMove = (fromSquareId, toSquareId) => {
     // Copia profunda del tablero
     const newBoard = boardState.map(square => ({ ...square }));
@@ -158,30 +163,37 @@ export const ChessBoard = () => {
 
     const handleSquareClick = (squareId) => {
   
-      const piece = getPieceAtSquare(squareId, boardState);
+      const piece = gameState.board.find(sq => sq.squareId === squareId);
         
         // Seleccionar solo piezas del turno actual
-        if (piece.pieceColor !== 'blank' && 
-            ((isWhiteTurn && piece.pieceColor === 'blanco') || 
-            (!isWhiteTurn && piece.pieceColor === 'negro'))){
+        if (piece.pieceColor !== 'blank' && piece.pieceColor === (gameState.isWhiteTurn ? 'blanco' : 'negro')){
       const moves = getPossibleMoves(
         squareId,
         { pieceType: piece.pieceType, pieceColor: piece.pieceColor },
-        boardState
+        gameState.board,
+        gameState.castlingAvailability
       );
-      setSelectedPiece(squareId);
-      setValidMoves(moves);
+      setGameState(prev => ({ ...prev, selectedPiece: squareId, validMoves: moves }));
       return;
     }
 
         // Mover si hay una pieza seleccionada
         if (selectedPiece && validMoves.includes(squareId)) {
-      const newBoard = movePiece(selectedPiece, squareId, boardState);
-      setBoardState(newBoard);
-      setIsWhiteTurn(!isWhiteTurn);
-      setSelectedPiece(null);
-      setValidMoves([]);
+      const newBoard = movePiece(
+        gameState.selectedPiece,
+        squareId,
+        gameState.board,
+        gameState.castlingAvailability
+      );
+      setGameState(prev => ({
+        ...prev,
+        board: newBoard,
+        isWhiteTurn: !prev.isWhiteTurn,
+        selectedPiece: null,
+        validMoves: []
+      }));
     }
+    
   };
 
 

@@ -53,16 +53,24 @@ const isMoveSafe = (board, fromSquareId, toSquareId, pieceColor) => {
 
 
 
-export const movePiece = (from, to, boardState) => {
+export const movePiece = (from, to, boardState, castlingAvailability) => {
   const newBoard = deepCopyArray(boardState);
   const fromSquare = newBoard.find(sq => sq.squareId === from);
   const toSquare = newBoard.find(sq => sq.squareId === to);
   
+    // Mover el rey (enroque)
+  if (fromSquare.pieceType === 'rey' && Math.abs(fromSquareId.charCodeAt(0) - toSquareId.charCodeAt(0)) === 2) {
+    handleCastling(newBoard, fromSquareId, toSquareId, fromSquare.pieceColor);
+    updateCastlingAvailability(castlingAvailability, fromSquare.pieceColor);
+  } else {
+
   // Mover la pieza
   toSquare.pieceColor = fromSquare.pieceColor;
   toSquare.pieceType = fromSquare.pieceType;
   toSquare.pieceId = fromSquare.pieceId;
-  
+  }
+
+
   // Limpiar casilla de origen
   fromSquare.pieceColor = "blank";
   fromSquare.pieceType = "blank";
@@ -123,13 +131,68 @@ const isKingInCheckAfterMove = (board, fromSquareId, toSquareId, piece) => {
 //     }
 // };
 
-export const getPossibleMoves = (fromSquareId, piece, board) => {
-  const moves = calculateMoves(fromSquareId, piece, board);
-  console.log(moves);
-  return moves.filter(move => 
-    !isKingInCheckAfterMove(board, fromSquareId, move, piece)
+export const getPossibleMoves = (fromSquareId, piece, board, castlingAvailability) => {
+  const rawMoves = calculateMoves(fromSquareId, piece, board);
+  const safeMoves = rawMoves.filter(move => 
+    isMoveSafe(board, fromSquareId, move, piece.pieceColor)
   );
+  if (piece.pieceType === 'rey') {
+    const castleMoves = getCastleMoves(fromSquareId, piece.pieceColor, board, castlingAvailability);
+    safeMoves.push(...castleMoves);
+  }
+
+  return safeMoves;
 };
+
+
+const getCastleMoves = (kingSquareId, pieceColor, board, castlingAvailability) => {
+  const castleMoves = [];
+  const rank = pieceColor === 'blanco' ? '1' : '8';
+  const kingSideRook = `h${rank}`;
+  const queenSideRook = `a${rank}`;
+
+  // Enroque corto (king-side)
+  if (castlingAvailability[`${pieceColor}KingSide`] && 
+      isPathClear(kingSquareId, kingSideRook, board) && 
+      !isKingInCheck(kingSquareId, pieceColor, board)) {
+    const squaresToCheck = ['f', 'g'].map(f => `${f}${rank}`);
+    if (squaresToCheck.every(sq => 
+      isSquareEmpty(sq, board) && 
+      !isSquareUnderAttack(sq, pieceColor, board))
+    ) {
+      castleMoves.push(`g${rank}`); // Movimiento del rey
+    }
+  }
+
+  // Enroque largo (queen-side)
+  if (castlingAvailability[`${pieceColor}QueenSide`] && 
+      isPathClear(kingSquareId, queenSideRook, board) && 
+      !isKingInCheck(kingSquareId, pieceColor, board)) {
+    const squaresToCheck = ['d', 'c'].map(f => `${f}${rank}`);
+    if (squaresToCheck.every(sq => 
+      isSquareEmpty(sq, board) && 
+      !isSquareUnderAttack(sq, pieceColor, board))
+    ) {
+      castleMoves.push(`c${rank}`); // Movimiento del rey
+    }
+  }
+
+  return castleMoves;
+};
+
+
+const isPathClear = (kingSquareId, rookSquareId, board) => {
+  const [kFile, kRank] = [kingSquareId[0], kingSquareId[1]];
+  const [rFile, rRank] = [rookSquareId[0], rookSquareId[1]];
+  const fileStep = kFile < rFile ? 1 : -1;
+
+  for (let file = kFile.charCodeAt(0) + fileStep; file !== rFile.charCodeAt(0); file += fileStep) {
+    const square = `${String.fromCharCode(file)}${kRank}`;
+    if (!isSquareEmpty(square, board)) return false;
+  }
+  return true;
+};
+
 
 // Filtra movimientos que dejarían al rey en jaque
 export const isMoveValidAgainstCheck = (legalSquares, startingSquareId, pieceColor, pieceType, boardState, kingSquare) => {
@@ -279,59 +342,87 @@ const handleEnPassant = (board, startingSquareId, destinationSquareId, pieceColo
 };
 
 // Función auxiliar: enroque
-const handleCastling = (board, startingSquareId, destinationSquareId, pieceColor) => {
-    const isKingSide = destinationSquareId.charAt(0) === 'g';
-    const rank = pieceColor === 'blanco' ? '1' : '8';
+// const handleCastling = (board, startingSquareId, destinationSquareId, pieceColor) => {
+//     const isKingSide = destinationSquareId.charAt(0) === 'g';
+//     const rank = pieceColor === 'blanco' ? '1' : '8';
     
-    const rookStartFile = isKingSide ? 'h' : 'a';
-    const rookEndFile = isKingSide ? 'f' : 'd';
+//     const rookStartFile = isKingSide ? 'h' : 'a';
+//     const rookEndFile = isKingSide ? 'f' : 'd';
     
-    const rookStartSquare = board.find(sq => sq.squareId === `${rookStartFile}${rank}`);
-    const rookEndSquare = board.find(sq => sq.squareId === `${rookEndFile}${rank}`);
+//     const rookStartSquare = board.find(sq => sq.squareId === `${rookStartFile}${rank}`);
+//     const rookEndSquare = board.find(sq => sq.squareId === `${rookEndFile}${rank}`);
     
-    rookEndSquare.pieceColor = rookStartSquare.pieceColor;
-    rookEndSquare.pieceType = rookStartSquare.pieceType;
-    rookEndSquare.pieceId = rookStartSquare.pieceId;
+//     rookEndSquare.pieceColor = rookStartSquare.pieceColor;
+//     rookEndSquare.pieceType = rookStartSquare.pieceType;
+//     rookEndSquare.pieceId = rookStartSquare.pieceId;
     
-    rookStartSquare.pieceColor = "blank";
-    rookStartSquare.pieceType = "blank";
-    rookStartSquare.pieceId = "blank";
+//     rookStartSquare.pieceColor = "blank";
+//     rookStartSquare.pieceType = "blank";
+//     rookStartSquare.pieceId = "blank";
+// };
+
+const handleCastling = (board, kingFromId, kingToId, pieceColor) => {
+  const rank = pieceColor === 'blanco' ? '1' : '8';
+  const isKingSide = kingToId[0] === 'g';
+
+  // Mover rey
+  const king = board.find(sq => sq.squareId === kingFromId);
+  const kingTo = board.find(sq => sq.squareId === kingToId);
+  kingTo.pieceColor = king.pieceColor;
+  kingTo.pieceType = king.pieceType;
+
+  // Mover torre
+  const rookFromId = isKingSide ? `h${rank}` : `a${rank}`;
+  const rookToId = isKingSide ? `f${rank}` : `d${rank}`;
+  const rook = board.find(sq => sq.squareId === rookFromId);
+  const rookTo = board.find(sq => sq.squareId === rookToId);
+  rookTo.pieceColor = rook.pieceColor;
+  rookTo.pieceType = rook.pieceType;
+  rook.pieceColor = 'blank';
+  rook.pieceType = 'blank';
 };
 
 // Función auxiliar: actualizar estado después de mover
-const updateGameStateAfterMove = (
-    startingSquareId, 
-    destinationSquareId, 
-    gameState, 
-    setGameState,
-    boardState
-) => {
-    const piece = getPieceAtSquare(destinationSquareId, boardState);
-    const opponentColor = piece.pieceColor === 'blanco' ? 'negro' : 'blanco';
-    const opponentKingSquare = opponentColor === 'blanco' ? gameState.whiteKingSquare : gameState.blackKingSquare;
-    // Actualizar posición del rey si es necesario
-    if (piece.pieceType === 'rey') {
-        piece.pieceColor === 'blanco' 
-            ? setGameState(prev => ({ ...prev, whiteKingSquare: destinationSquareId }))
-            : setGameState(prev => ({ ...prev, blackKingSquare: destinationSquareId }));
-    }
+// const updateGameStateAfterMove = (
+//     startingSquareId, 
+//     destinationSquareId, 
+//     gameState, 
+//     setGameState,
+//     boardState
+// ) => {
+//     const piece = getPieceAtSquare(destinationSquareId, boardState);
+//     const opponentColor = piece.pieceColor === 'blanco' ? 'negro' : 'blanco';
+//     const opponentKingSquare = opponentColor === 'blanco' ? gameState.whiteKingSquare : gameState.blackKingSquare;
+//     // Actualizar posición del rey si es necesario
+//     if (piece.pieceType === 'rey') {
+//         piece.pieceColor === 'blanco' 
+//             ? setGameState(prev => ({ ...prev, whiteKingSquare: destinationSquareId }))
+//             : setGameState(prev => ({ ...prev, blackKingSquare: destinationSquareId }));
+//     }
 
-    // Verificar jaque
-    const isOpponentKingInCheck = isKingInCheck(opponentKingSquare, opponentColor, boardState);
+//     // Verificar jaque
+//     const isOpponentKingInCheck = isKingInCheck(opponentKingSquare, opponentColor, boardState);
     
-    setGameState(prev => ({
-        ...prev,
-        isWhiteTurn: !prev.isWhiteTurn,
-        selectedPiece: null,
-        validMoves: [],
-        alertMessage: isOpponentKingInCheck 
-            ? `¡Jaque! El rey ${opponentColor} está en peligro` 
-            : "",
-        kingInCheck: {
-            white: opponentColor === 'blanco' ? isOpponentKingInCheck : prev.kingInCheck.white,
-            black: opponentColor === 'negro' ? isOpponentKingInCheck : prev.kingInCheck.black
-        }
-    }));
+//     setGameState(prev => ({
+//         ...prev,
+//         isWhiteTurn: !prev.isWhiteTurn,
+//         selectedPiece: null,
+//         validMoves: [],
+//         alertMessage: isOpponentKingInCheck 
+//             ? `¡Jaque! El rey ${opponentColor} está en peligro` 
+//             : "",
+//         kingInCheck: {
+//             white: opponentColor === 'blanco' ? isOpponentKingInCheck : prev.kingInCheck.white,
+//             black: opponentColor === 'negro' ? isOpponentKingInCheck : prev.kingInCheck.black
+//         }
+//     }));
+// };
+
+
+const updateCastlingAvailability = (castlingAvailability, pieceColor) => {
+  // Desactivar todos los enroques para este color después de mover el rey
+  castlingAvailability[`${pieceColor}KingSide`] = false;
+  castlingAvailability[`${pieceColor}QueenSide`] = false;
 };
 
 // Función auxiliar: obtener pieza en casilla 
