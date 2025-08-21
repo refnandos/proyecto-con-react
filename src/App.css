@@ -63,12 +63,63 @@ footer ul li a{
 
 }
 
+footer .cerrar-sesion button{
+  font-size: 0.9rem;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #ff0000;
+}
+
 @media (max-width: 767px) {
   footer {
     padding: 0.5rem ;
     font-size: 0.5rem;
   }
 }
+
+/******************************/
+/* HOME */
+
+.main {
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 100px;
+}
+
+
+.introduccion {
+  position: relative; 
+  display: inline-block;
+}
+
+.Home-Imagen{
+  width: 100%;
+  max-height: 200px;
+}
+
+.textoimg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  background: rgba(0,0,0,0.);
+  padding: 120px;
+  border-Radius: 5px;
+}
+
 
 /* ****************************** */
 /* Botones header */
@@ -217,6 +268,7 @@ form {
 /* ************************* */
 /* menu Juegos */
 .juegos-container {
+  height: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -228,22 +280,39 @@ form {
   padding-bottom: 100px;
 }
 
+/* imagen del contenedor*/
+.juegos-container .imagen{
+  flex: 0 0 auto;
+}
+.juegos-container .imagen img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.juegos-container .texto{
+  flex: 1;
+}
+
 .juegos-titulo {
   text-align: center;
   color: #ffffff;
   margin-bottom: 30px;
 }
 
-.juegos-container div{
+.juegos-container .juego1 , .juego2 , .juego3{
   margin: 20px;
   padding: 30px;
-  flex: 1 1 calc(25% - 20px); /* 4 columnas por defecto */
   min-width: 200px;
   max-width: 300px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease;
+}
+
+.juegos-container .juego1 , .juego2 , .juego3  div{
+  display: flex;
 }
 
 .juegos-container .jugar{
@@ -276,16 +345,15 @@ form {
   }
 }
 
-
+/**/
 
 
 
 /* ************************* */
 /* util para mantener una tamaño concreto */
-.contenedor-comun {
-    height: 79vh;
-    
-}
+/* .contenedor-comun { 
+     height: 79vh; 
+} */
 
 /* ************************* */
 /* esconde un componente */

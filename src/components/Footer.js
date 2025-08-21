@@ -6,12 +6,12 @@ import { IoPerson } from "react-icons/io5";
 //usado para redirigir al usuario a otra pagina
 import { useNavigate } from 'react-router-dom';
 
-export const Footer = () => {
+export const Footer = ({logged}) => {
 
   
     const navigate = useNavigate();
 
-    const handleLogout = () => {
+    const logout = () => {
       localStorage.removeItem('usuario');
       navigate('/login');
       window.location.reload();
@@ -25,15 +25,12 @@ export const Footer = () => {
       <div className="lista-footer">
         <ul>
           <li>
-              <Link to='/About'><FaHome />sobre nosotros</Link>
-          </li>
-          <li>
-              <Link to="/Contact"><IoPerson />contactanos</Link>
+              <Link to='/'><FaHome /> Menu principal</Link>
           </li>
         </ul>
       </div>
-      <div className="cerrar-sesion"> 
-        <button onClick={handleLogout}>Cerrar sesión</button>
+      <div className={!logged ? "cerrar-sesion hidden" : "cerrar-sesion"}> 
+        <button onClick={logout}>Cerrar sesión</button>
       </div>
 
     </footer>

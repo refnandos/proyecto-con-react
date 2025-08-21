@@ -1,0 +1,44 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123
+      
+
+
+  web:
+    image: php:8.2-apache
+    restart: always
+    volumes:
+      - /web:/var/www/html
+    ports:
+      - "5000:80"
+    depends_on:
+      - db
+    command: >
+      bash -c "
+      apt-get update &&
+      apt-get install -y libzip-dev && 
+      docker-php-ext-install mysqli &&
+      apache2-foreground
+      "
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    ports:
+      - '8080:80'
+    depends_on:
+      - db
+
+volumes:
+  db_data:

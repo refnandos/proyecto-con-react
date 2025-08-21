@@ -5,9 +5,13 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 
 export const JuegoSnake = () => {
 
-    const id_usuario = (JSON.parse(localStorage.getItem('usuario')).id) ;
+    
+    const [id_usuario, setId_usuario] = useState('') ;
     const id_juego = 3;
-    const [puntaje_partida, setPuntaje] = useState(100);
+    const [puntaje_partida, setPuntaje] = useState(0);
+
+
+  
 
    const canvasRef = useRef(null);
    /*tamaño de la serpiente al empezar el juego */
@@ -25,6 +29,14 @@ export const JuegoSnake = () => {
   const cellSize = 20;
   const gridSize = 20;
 
+
+    useEffect(() => {
+      const user = JSON.parse(localStorage.getItem('usuario'));
+      if(user){ 
+        setId_usuario(JSON.parse(localStorage.getItem('usuario')).id)
+      };
+    }, []);
+  
   // Generar comida ALEATORIAMENTE
   const generarComida = useCallback(() => {
 
@@ -158,10 +170,10 @@ export const JuegoSnake = () => {
         });
 
         const result = await response.json();
-        console.log("victoria?");
+        console.log("datos enviados a php?");
         console.log('Resultado guardado:', result);
       } catch (error) {
-        console.log("derrota?");
+        console.log("error con datos enviados?");
         console.error('Error al enviar los datos:', error);
       }
     };
