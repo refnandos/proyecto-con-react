@@ -20,6 +20,7 @@ export const Puntuaciones = () => {
     // conseguir datos de la base de datos usando fetch
     const fetchPuntuaciones = async () => {
       try {
+        // const response = await fetch('http://localhost/backend/archivos/puntuaciones.php');
         const response = await fetch('http://localhost/backend/archivos/puntuaciones.php');
         const data = await response.json();
         
