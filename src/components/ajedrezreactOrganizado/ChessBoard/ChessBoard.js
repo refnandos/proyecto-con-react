@@ -19,7 +19,7 @@
 //         setGameState(newGameState);
 //     };
 
-    
+
 
 
 //     const renderSquare = (square, index) => (
@@ -80,13 +80,13 @@
 //   const handleDrop = (e, destinationSquareId) => {
 //     e.preventDefault();
 //     const startingSquareId = e.dataTransfer.getData("text/plain");
-    
+
 //     if (validMoves.includes(destinationSquareId)) {
 //       const newBoard = movePiece(startingSquareId, destinationSquareId, boardState);
 //       setBoardState(newBoard);
 //       setIsWhiteTurn(!isWhiteTurn);
 //     }
-    
+
 //     setSelectedPiece(null);
 //     setValidMoves([]);
 //   };
@@ -125,13 +125,10 @@
 
 import { useState } from 'react';
 import { initialBoardSetup } from '../GameLogic/gameSetup';
-import { 
-  movePiece, 
-  getPossibleMoves 
-} from '../GameLogic/moveLogic';
+import { movePiece, getPossibleMoves } from '../GameLogic/moveLogic';
 import { getPieceAtSquare } from '../GameLogic/checkLogic';
-import {ChessSquare} from './ChessSquare';
-import {initialGameState } from '../GameLogic/gameSetup';
+import { ChessSquare } from './ChessSquare';
+import { initialGameState } from '../GameLogic/gameSetup';
 
 import './styles.css';
 
@@ -141,68 +138,74 @@ export const ChessBoard = () => {
     const [boardState, setBoardState] = useState(initialBoardSetup());
     const [isWhiteTurn, setIsWhiteTurn] = useState(true);
     const [gameState, setGameState] = useState({
-        ...initialGameState(),
-        board: initialBoardSetup()
+        ...initialGameState()
     });
 
 
     const handlePieceMove = (fromSquareId, toSquareId) => {
-    // Copia profunda del tablero
-    const newBoard = boardState.map(square => ({ ...square }));
-    
-    // Lógica de movimiento (simplificada)
-    const fromSquare = newBoard.find(sq => sq.squareId === fromSquareId);
-    const toSquare = newBoard.find(sq => sq.squareId === toSquareId);
-    
-    toSquare.pieceColor = fromSquare.pieceColor;
-    toSquare.pieceType = fromSquare.pieceType;
-    // ... (resto de la lógica de movimiento)
+        // Copia profunda del tablero
+        const newBoard = boardState.map(square => ({ ...square }));
 
-    setBoardState(newBoard);
-    setIsWhiteTurn(!isWhiteTurn); // Cambia el turno
-        };
+        // Lógica de movimiento (simplificada)
+        const fromSquare = newBoard.find(sq => sq.squareId === fromSquareId);
+        const toSquare = newBoard.find(sq => sq.squareId === toSquareId);
+
+        toSquare.pieceColor = fromSquare.pieceColor;
+        toSquare.pieceType = fromSquare.pieceType;
+        // ... (resto de la lógica de movimiento)
+
+        setBoardState(newBoard);
+        setIsWhiteTurn(!isWhiteTurn); // Cambia el turno
+    };
 
     const handleSquareClick = (squareId) => {
-  
-      const piece = getPieceAtSquare(squareId, boardState);
-        
+
+        const piece = boardState.find(sq => sq.squareId === squareId);
+
         // Seleccionar solo piezas del turno actual
-        if (piece.pieceColor !== 'blank' && 
-            ((isWhiteTurn && piece.pieceColor === 'blanco') || 
-            (!isWhiteTurn && piece.pieceColor === 'negro'))){
-      const moves = getPossibleMoves(
-        squareId,
-        { pieceType: piece.pieceType, pieceColor: piece.pieceColor },
-        boardState
-      );
-      setSelectedPiece(squareId);
-      setValidMoves(moves);
-      return;
-    }
+        if (piece.pieceColor !== 'blank') {
+            const moves = getPossibleMoves(
+                squareId,
+                { pieceType: piece.pieceType, pieceColor: piece.pieceColor },
+                boardState,
+                gameState.castlingAvailability
+            );
+            setGameState(prev => ({ ...prev, selectedPiece: squareId, validMoves: moves }));
+            console.log("movimientos validos handlesquareclick " + moves);
+        } else if (gameState.selectedPiece && gameState.validMoves.includes(squareId)) {
+            // Mover si hay una pieza seleccionada
+            const newBoard = movePiece(
+                gameState.selectedPiece,
+                squareId,
+                boardState,
+                gameState.castlingAvailability
+            );
 
-        // Mover si hay una pieza seleccionada
-        if (selectedPiece && validMoves.includes(squareId)) {
-      const newBoard = movePiece(selectedPiece, squareId, boardState);
-      setBoardState(newBoard);
-      setIsWhiteTurn(!isWhiteTurn);
-      setSelectedPiece(null);
-      setValidMoves([]);
-    }
-  };
+            setBoardState(newBoard);
+            setGameState(prev => ({
+                ...prev,
+                isWhiteTurn: !prev.isWhiteTurn,
+                selectedPiece: null,
+                validMoves: []
+            }));
+        }
+    };
 
 
-  return (
-    <div className="chess-board">
-      {boardState.map((square, index) => (
-        <ChessSquare
-          key={square.squareId}
-          square={square}
-          index={index}
-          isSelected={selectedPiece === square.squareId}
-          isValidMove={validMoves.includes(square.squareId)}
-          onClick={() => handleSquareClick(square.squareId)}
-        />
-      ))}
-    </div>
-  );
+    return (
+        <div className='chess-container'>
+            <div className="chess-board">
+                {boardState.map((square, index) => (
+                    <ChessSquare
+                        key={square.squareId}
+                        square={square}
+                        index={index}
+                        isSelected={selectedPiece === square.squareId}
+                        isValidMove={validMoves.includes(square.squareId)}
+                        onClick={() => handleSquareClick(square.squareId)}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 };

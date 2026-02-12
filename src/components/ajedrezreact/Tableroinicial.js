@@ -162,8 +162,8 @@ export const Tableroinicial = () => {
         legalSquares.push(currentSquareId);
 
         if ((rankNumber !== 2 && pieceColor === "blanco") && (rankNumber !== 7 && pieceColor === "negro")) return legalSquares;
-
         currentRank += direction;
+        
         const doubleMoveSquareId = file + currentRank;
         const doubleMoveContent = getPieceAtSquare(doubleMoveSquareId);
         if (doubleMoveContent.pieceColor !== "blank") return legalSquares;
@@ -360,7 +360,7 @@ export const Tableroinicial = () => {
             const squareContent = getPieceAtSquare(move);
             if (squareContent.pieceColor === opponentColor && squareContent.pieceType === 'caballo') {
                 // console.trace(new Date().toLocaleTimeString() +  "jaque de caballo"+ squareContent.pieceType+ " " + opponentColor + " " + squareId);
-                
+
                 return (true);
             }
         }
@@ -388,24 +388,24 @@ export const Tableroinicial = () => {
 
         // Verificar ataques del rey contrario
         const kingOffsets = [
-        [-1, -1], [-1, 0], [-1, 1],
-        [0, -1],           [0, 1],
-        [1, -1],  [1, 0],  [1, 1]
-    ];
+            [-1, -1], [-1, 0], [-1, 1],
+            [0, -1], [0, 1],
+            [1, -1], [1, 0], [1, 1]
+        ];
 
-    for (const [fileOffset, rankOffset] of kingOffsets) {
-        const file = squareId.charCodeAt(0) - 97 + fileOffset;
-        const rank = parseInt(squareId.charAt(1)) + rankOffset;
+        for (const [fileOffset, rankOffset] of kingOffsets) {
+            const file = squareId.charCodeAt(0) - 97 + fileOffset;
+            const rank = parseInt(squareId.charAt(1)) + rankOffset;
 
-        if (file >= 0 && file <= 7 && rank >= 1 && rank <= 8) {
-            const currentSquareId = String.fromCharCode(file + 97) + rank;
-            const squareContent = getPieceAtSquare(currentSquareId);
+            if (file >= 0 && file <= 7 && rank >= 1 && rank <= 8) {
+                const currentSquareId = String.fromCharCode(file + 97) + rank;
+                const squareContent = getPieceAtSquare(currentSquareId);
 
-            if (squareContent.pieceColor === opponentColor && squareContent.pieceType === 'rey') {
-                return true;
+                if (squareContent.pieceColor === opponentColor && squareContent.pieceType === 'rey') {
+                    return true;
+                }
             }
         }
-    }
         setAlertMessage("");
         return (false);
     }, [getPieceAtSquare, getKnightMoves]);
@@ -485,42 +485,42 @@ export const Tableroinicial = () => {
     const isMoveValidAgainstCheck = useCallback((legalSquares, startingSquareId, pieceColor, pieceType) => {
         const kingSquare = pieceColor === 'blanco' ? whiteKingSquare : blackKingSquare;
         const filteredMoves = [];
-        
-        legalSquares.forEach((destinationId) => {
-        const boardCopy = deepCopyArray(boardSquaresArray);
-        const currentSquare = boardCopy.find(e => e.squareId === startingSquareId);
-        const destinationSquare = boardCopy.find(e => e.squareId === destinationId);
-        
-        // Simular movimiento
-        destinationSquare.pieceColor = currentSquare.pieceColor;
-        destinationSquare.pieceType = currentSquare.pieceType;
-        destinationSquare.pieceId = currentSquare.pieceId;
-        currentSquare.pieceColor = "blank";
-        currentSquare.pieceType = "blank";
-        currentSquare.pieceId = "blank";
-        
-        let isCheck;
-        if (pieceType === "rey") {
-            isCheck = isKingInCheck(destinationId, pieceColor);
-            console.log("getPossibleMoves: 505 | " + isKingInCheck(destinationSquare.pieceId, destinationSquare.pieceColor));
 
-            // console.trace(new Date().toLocaleTimeString() + " | isMoveValidAgainstCheck:540 | validacion de jaque rey | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
-        } else {
-            isCheck = isKingInCheck(kingSquare, pieceColor);
-            // console.trace(new Date().toLocaleTimeString() +  " | isMoveValidAgainstCheck:540 | validacion de jaque pieza:" + pieceType + " | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
-        }
-        
-        if (!isCheck) {
-            filteredMoves.push(destinationId);
-            
-        }
+        legalSquares.forEach((destinationId) => {
+            const boardCopy = deepCopyArray(boardSquaresArray);
+            const currentSquare = boardCopy.find(e => e.squareId === startingSquareId);
+            const destinationSquare = boardCopy.find(e => e.squareId === destinationId);
+
+            // Simular movimiento
+            destinationSquare.pieceColor = currentSquare.pieceColor;
+            destinationSquare.pieceType = currentSquare.pieceType;
+            destinationSquare.pieceId = currentSquare.pieceId;
+            currentSquare.pieceColor = "blank";
+            currentSquare.pieceType = "blank";
+            currentSquare.pieceId = "blank";
+
+            let isCheck;
+            if (pieceType === "rey") {
+                isCheck = isKingInCheck(destinationId, pieceColor);
+                console.log("getPossibleMoves: 505 | " + isKingInCheck(destinationSquare.pieceId, destinationSquare.pieceColor));
+
+                // console.trace(new Date().toLocaleTimeString() + " | isMoveValidAgainstCheck:540 | validacion de jaque rey | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
+            } else {
+                isCheck = isKingInCheck(kingSquare, pieceColor);
+                // console.trace(new Date().toLocaleTimeString() +  " | isMoveValidAgainstCheck:540 | validacion de jaque pieza:" + pieceType + " | posicion:"+ destinationId +" | rey en jaque? "+ isCheck);
+            }
+
+            if (!isCheck) {
+                filteredMoves.push(destinationId);
+
+            }
         });
-        
+
         return filteredMoves;
     }, [boardSquaresArray, deepCopyArray, isKingInCheck, whiteKingSquare, blackKingSquare]);
 
 
-    
+
     const getPossibleMoves = useCallback((startingSquareId, piece) => {
         const pieceColor = piece.pieceColor;
         const pieceType = piece.pieceType;
@@ -564,48 +564,48 @@ export const Tableroinicial = () => {
     // Implementación de getAllPossibleMoves
     const getAllPossibleMoves = useCallback((color) => {
         return boardSquaresArray
-        .filter(square => square.pieceColor === color)
-        .flatMap(square => {
-            const piece = getPieceAtSquare(square.squareId);
-            if (piece.pieceId === "blank") return [];
-            
-            let moves = getPossibleMoves(square.squareId, piece);
-            moves = isMoveValidAgainstCheck(moves, square.squareId, piece.pieceColor, piece.pieceType);
-            return moves.map(move => ({
-            from: square.squareId,
-            to: move
-            }));
-        });
+            .filter(square => square.pieceColor === color)
+            .flatMap(square => {
+                const piece = getPieceAtSquare(square.squareId);
+                if (piece.pieceId === "blank") return [];
+
+                let moves = getPossibleMoves(square.squareId, piece);
+                moves = isMoveValidAgainstCheck(moves, square.squareId, piece.pieceColor, piece.pieceType);
+                return moves.map(move => ({
+                    from: square.squareId,
+                    to: move
+                }));
+            });
     }, [boardSquaresArray, getPieceAtSquare, getPossibleMoves, isMoveValidAgainstCheck]);
 
     // Formas de finalizar el juego
     const checkForGameEnd = useCallback(() => {
         const currentPlayerColor = isWhiteTurn ? 'blanco' : 'negro';
         const kingSquare = currentPlayerColor === 'blanco' ? whiteKingSquare : blackKingSquare;
-        
+
         // 1. Verificar jaque mate
         const inCheck = isKingInCheck(kingSquare, currentPlayerColor);
         const possibleMoves = getAllPossibleMoves(currentPlayerColor);
-        
+
         if (inCheck && possibleMoves.length === 0) {
-        setGameStatus('checkmate');
-        setAlertMessage(`¡Jaque mate! ${isWhiteTurn ? 'Negras' : 'Blancas'} ganan.`);
-        setKingInCheck({ white: false, black: false });
-        return true;
+            setGameStatus('checkmate');
+            setAlertMessage(`¡Jaque mate! ${isWhiteTurn ? 'Negras' : 'Blancas'} ganan.`);
+            setKingInCheck({ white: false, black: false });
+            return true;
         }
-        
+
         // 2. Verificar ahogado (stalemate)
         if (!inCheck && possibleMoves.length === 0) {
-        setGameStatus('stalemate');
-        setAlertMessage("¡Ahogado! Empate.");
-        return true;
+            setGameStatus('stalemate');
+            setAlertMessage("¡Ahogado! Empate.");
+            return true;
         }
-        
+
         // 3. Verificar material insuficiente
         if (isInsufficientMaterial()) {
-        setGameStatus('draw');
-        setAlertMessage("Empate por material insuficiente.");
-        return true;
+            setGameStatus('draw');
+            setAlertMessage("Empate por material insuficiente.");
+            return true;
         }
 
 
@@ -614,25 +614,25 @@ export const Tableroinicial = () => {
 
     const isInsufficientMaterial = useCallback(() => {
         const pieces = boardSquaresArray.filter(sq => sq.pieceColor !== 'blank');
-        
+
         // Solo reyes
         if (pieces.length === 2) return true;
-        
+
         // Rey + alfil vs Rey
         // Rey + caballo vs Rey
         if (pieces.length === 3) {
-        const bishops = pieces.filter(p => p.pieceType === 'alfil');
-        const knights = pieces.filter(p => p.pieceType === 'caballo');
-        return bishops.length === 1 || knights.length === 1;
+            const bishops = pieces.filter(p => p.pieceType === 'alfil');
+            const knights = pieces.filter(p => p.pieceType === 'caballo');
+            return bishops.length === 1 || knights.length === 1;
         }
-        
+
         // Rey + 2 caballos vs Rey (raro, pero técnicamente no es mate forzado)
         // Alfiles del mismo color
         // Implementar más casos según sea necesario
-        
+
         return false;
     }, [boardSquaresArray]);
-    
+
     const updateBoardSquaresArray = useCallback((currentSquareId, destinationSquareId) => {
         setBoardSquaresArray(prev => {
             const newArray = deepCopyArray(prev);
@@ -754,7 +754,7 @@ export const Tableroinicial = () => {
         //Verificar solo jaque
         const opponentKingSquare = opponentColor === 'blanco' ? whiteKingSquare : blackKingSquare;
         const isOpponentKingInCheck = isKingInCheck(opponentKingSquare, opponentColor);
-            console.log("rey oponente en jaque"+isOpponentKingInCheck);
+        console.log("rey oponente en jaque" + isOpponentKingInCheck);
         if (isOpponentKingInCheck) {
             setAlertMessage(`¡Jaque! El rey ${opponentColor} en ${opponentKingSquare} está en peligro`);
             setKingInCheck(prev => ({
@@ -776,7 +776,7 @@ export const Tableroinicial = () => {
 
         // Verificar jaque mate
         checkForGameEnd();
-        
+
     };
 
 
@@ -785,7 +785,7 @@ export const Tableroinicial = () => {
         if ((isWhiteTurn && piece.pieceColor === "blanco") || (!isWhiteTurn && piece.pieceColor === "negro")) {
             setSelectedPiece({ ...piece, squareId });
             let legalSquares = getPossibleMoves(squareId, piece);
-            
+
             legalSquares = isMoveValidAgainstCheck(legalSquares, squareId, piece.pieceColor, piece.pieceType);
             setValidMoves(legalSquares);
             console.log("handlePieceDragStart:772 | pieza: " + piece.pieceType + "| movimientos disponibles |" + legalSquares);
@@ -805,9 +805,9 @@ export const Tableroinicial = () => {
         const isSelected = selectedPiece?.squareId === square.squareId;
         const isValidMove = validMoves.includes(square.squareId);
 
-        const isKingInCheckSquare = 
-        (square.pieceType === 'rey' && square.pieceColor === 'blanco' && kingInCheck.white) ||
-        (square.pieceType === 'rey' && square.pieceColor === 'negro' && kingInCheck.black);
+        const isKingInCheckSquare =
+            (square.pieceType === 'rey' && square.pieceColor === 'blanco' && kingInCheck.white) ||
+            (square.pieceType === 'rey' && square.pieceColor === 'negro' && kingInCheck.black);
 
 
         const rank = square.squareId.charAt(1);
@@ -861,28 +861,28 @@ export const Tableroinicial = () => {
     };
 
     return (
-    <div className="contenedor-comun">
-      {gameStatus !== 'playing' && (
-        <div className="game-over-modal">
-          <h2>{alertMessage}</h2>
-          <button onClick={() => {
-            setBoardSquaresArray(initialBoard);
-            setIsWhiteTurn(true);
-            setWhiteKingSquare("e1");
-            setBlackKingSquare("e8");
-            setGameStatus("playing");
-            setAlertMessage("");
-          }}>
-            Jugar otra vez
-          </button>
+        <div className="contenedor-comun">
+            {gameStatus !== 'playing' && (
+                <div className="game-over-modal">
+                    <h2>{alertMessage}</h2>
+                    <button onClick={() => {
+                        setBoardSquaresArray(initialBoard);
+                        setIsWhiteTurn(true);
+                        setWhiteKingSquare("e1");
+                        setBlackKingSquare("e8");
+                        setGameStatus("playing");
+                        setAlertMessage("");
+                    }}>
+                        Jugar otra vez
+                    </button>
+                </div>
+            )}
+            <div className="mensajePartida">
+                <h2>{alertMessage}</h2>
+            </div>
+            <div className={`Tablero ${gameStatus !== 'playing' ? 'game-over' : ''}`}>
+                {boardSquaresArray.map((square, index) => renderSquare(square, index))}
+            </div>
         </div>
-      )}
-      <div className="mensajePartida">
-        <h2>{alertMessage}</h2>
-      </div>
-      <div className={`Tablero ${gameStatus !== 'playing' ? 'game-over' : ''}`}>
-        {boardSquaresArray.map((square, index) => renderSquare(square, index))}
-      </div>
-    </div>
-  );
+    );
 };

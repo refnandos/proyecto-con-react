@@ -1,8 +1,8 @@
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #121212;
-    color: white;
+    background-color: #181818;
+    color: #DADADA;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -11,12 +11,12 @@ body {
 /*********************************************/
 /* header */
 header {
-    background-color: #1c1c1c;
+    background-color: #181818;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #00ff75;
+    border-bottom: 2px solid #00B894;
     height: 50px;
     position: sticky;
     top: 0;
@@ -25,7 +25,7 @@ header {
 
 header h1 {
     margin: 0;
-    color: #00ff75;
+    color: #00B894;
     font-size: 24px;
 }
 
@@ -40,16 +40,16 @@ header h1 {
 /*Footer*/
 footer {
 
-    position: fixed;
+    position: relative;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #1c1c1c;
+    background-color: #181818;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 2px solid #00ff75;
+    border-top: 2px solid #00B894;
     height: 50px;
     z-index: 0;
     
@@ -57,7 +57,7 @@ footer {
 
 footer ul li a{
     margin: 0;
-    color: #00ff75;
+    color: #00B894;
     font-size: 24px;
     text-decoration: none;
 
@@ -69,7 +69,7 @@ footer .cerrar-sesion button{
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
-  background-color: #ff0000;
+  background-color: #E17055;
 }
 
 @media (max-width: 767px) {
@@ -114,7 +114,7 @@ footer .cerrar-sesion button{
   position: absolute;
   top: 10px;
   left: 10px;
-  color: white;
+  color: #FFFFFF;
   background: rgba(0,0,0,0.);
   padding: 120px;
   border-Radius: 5px;
@@ -139,7 +139,7 @@ footer .cerrar-sesion button{
 }
 
 .btn-login {
-    background-color: #00ff75;
+    background-color: #00B894;
 }
 .btn-register a{
   color: black;
@@ -162,7 +162,7 @@ footer .cerrar-sesion button{
   padding: 0 30px;
   left: -100%;
   transition: all 0.3s;
-  border-right: 3px solid #00ff75;
+  border-right: 3px solid #00B894;
   z-index: 50;
 }
 
@@ -190,7 +190,7 @@ footer .cerrar-sesion button{
 }
 
 .sidenav ul li a{
-  color: #00ff75;
+  color: #00B894;
   font-size: 16px;
   text-decoration: none;
   display: block;
@@ -351,9 +351,9 @@ form {
 
 /* ************************* */
 /* util para mantener una tamaño concreto */
-/* .contenedor-comun { 
-     height: 79vh; 
-} */
+.contenedor-comun { 
+  flex-grow: 1;
+}
 
 /* ************************* */
 /* esconde un componente */

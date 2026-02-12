@@ -1,5 +1,12 @@
+.contenedor-info-usuarios {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+}
 .info-usuarios {
   width: 100%;
+  min-height: 500px;
   border-collapse: collapse;
   margin-top: 50px;
 }

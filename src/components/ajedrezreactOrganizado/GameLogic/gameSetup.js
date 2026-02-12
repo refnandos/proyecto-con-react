@@ -67,6 +67,16 @@ const createEmptySquare = (squareId) => {
 export const initialGameState = () => {
      return {
         isWhiteTurn: true,
+        castlingAvailability: {
+            blancoKingSide: true,    // Enroque corto (lado del rey)
+            blancoQueenSide: true,   // Enroque largo (lado de la dama)
+            negroKingSide: true,
+            negroQueenSide: true,
+            whiteKingSide: true,
+            whiteQueenSide: true,
+            blackKingSide: true,
+            blackQueenSide: true
+        },
         whiteKingSquare: "e1",
         blackKingSquare: "e8",
         selectedPiece: null,

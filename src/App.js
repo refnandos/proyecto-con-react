@@ -23,6 +23,7 @@ import { ContJuegoEsquivar } from "./components/contenedorjuegos/ContJuegoEsquiv
 import { Tableroinicial } from './components/ajedrezreact/Tableroinicial';
 import { ChessBoard } from './components/ajedrezreactOrganizado/ChessBoard/ChessBoard';
 import { ContenedorChessordenado } from './components/contenedorjuegos/ContenedorChessordenado';
+import { ContenedorChessComprender } from './components/contenedorjuegos/ContenedorChessComprender';
 
 /*consultas */
 import Login from './components/login/Login';
@@ -72,6 +73,7 @@ function App() {
             <Route path='/ContJuegoEsquivar' exact={true} Component={ContJuegoEsquivar} />
             <Route path='/Tableroinicial' exact={true} Component={Tableroinicial} />
             <Route path='/ContenedorChessordenado' exact={true} Component={ContenedorChessordenado} />
+            <Route path='/ContenedorChessComprender' exact={true} Component={ContenedorChessComprender} />
 
 
             {/* Sidebar links */}

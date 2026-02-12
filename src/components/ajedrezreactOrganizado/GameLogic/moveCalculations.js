@@ -260,7 +260,6 @@ export const getPawnMoves = (squareId, pieceColor, board) => {
       moves.push(captureSquare);
     }
   });
-
   return moves;
 };
 
@@ -316,7 +315,8 @@ export const getRookMoves = (squareId, pieceColor, board) => {
  * Movimientos de la REINA (combinación de torre y alfil)
  */
 export const getQueenMoves = (squareId, pieceColor, board) => {
-  return [
+   
+ return [
     ...getRookMoves(squareId, pieceColor, board),
     ...getBishopMoves(squareId, pieceColor, board)
   ];
@@ -325,6 +325,7 @@ export const getQueenMoves = (squareId, pieceColor, board) => {
 /**
  * Movimientos del REY (1 casilla en cualquier dirección)
  */
+
 export const getKingMoves = (squareId, pieceColor, board) => {
   const [file, rank] = [squareId[0], parseInt(squareId[1])];
   const moves = [];
@@ -342,7 +343,6 @@ export const getKingMoves = (squareId, pieceColor, board) => {
       }
     }
   }
-  console.log(moves);
   return moves;
 };
 

@@ -95,3 +95,76 @@
     opacity: 0.8;
     filter: grayscale(30%);
 }
+
+/* Estilos para ChessSquare */
+.square {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.selected {
+  background-color: rgba(20, 85, 30, 0.5) !important;
+}
+
+.valid-move {
+  position: relative;
+}
+
+.valid-move::after {
+  content: '';
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background-color: rgba(20, 85, 30, 0.3);
+}
+
+/* Para casillas con pieza */
+.valid-move.has-piece::after {
+  width: 100%;
+  height: 100%;
+  border: 3px solid rgba(20, 85, 30, 0.5);
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.king-in-check {
+  background-color: rgba(255, 0, 0, 0.5) !important;
+  animation: pulse-check 1.5s infinite;
+}
+
+@keyframes pulse-check {
+  0% { background-color: rgba(255, 0, 0, 0.3); }
+  50% { background-color: rgba(255, 0, 0, 0.7); }
+  100% { background-color: rgba(255, 0, 0, 0.3); }
+}
+
+/* Coordenadas del tablero */
+.coordinate {
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.rank {
+  left: 3px;
+  top: 3px;
+}
+
+.file {
+  right: 3px;
+  bottom: 3px;
+}
+
+.light-text {
+  color: #f0d9b5;
+}
+
+.dark-text {
+  color: #b58863;
+}

@@ -10,7 +10,7 @@ export const ContenedorChessordenado = () => {
 const [isWhiteTurn, setIsWhiteTurn] = useState(true);
     
   return (
-    <div className="chess-game">
+    <div className="contenedor-juego">
       <GameStatus isWhiteTurn={isWhiteTurn} />
       <ChessBoard 
         isWhiteTurn={isWhiteTurn}

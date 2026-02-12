@@ -24,7 +24,7 @@ export const Datosuser = () => {
   
     return (
 
-          <div>
+          <div className="contenedor-info-usuarios">
             <h1 >Lista de Usuarios</h1>
               
               <table className="info-usuarios">

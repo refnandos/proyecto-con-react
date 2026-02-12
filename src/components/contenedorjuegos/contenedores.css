@@ -1,0 +1,35 @@
+.contenedor-juego{
+  display: flex;
+  flex-direction: row; /* Por defecto: tabla a la izquierda, juego a la derecha */
+  gap: 1rem;
+  padding: 1rem;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay espacio */
+  box-sizing: border-box;
+}
+
+.juego-puntuaciones {
+  flex: 1;
+  max-width: 300px;
+  min-width: 250px;
+}
+
+.juego-contenido {
+  flex: 2;
+  min-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .contenedor-comun {
+    flex-direction: column;
+  }
+
+  .juego-puntuaciones {
+    order: 2;
+    width: 100%;
+  }
+
+  .juego-contenido {
+    order: 1;
+    width: 100%;
+  }
+}

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import serpiente from "./snake/serpienteimg/snakephoto.png";
 import tresRaya from "./tresRaya/tresRayaimg/tres-raya.png";
 import juegoesquivar from "./juegoEsquivar/juegoEsquivarimg/juegoEsquivar.png"
+import tableroinicial from "./ajedrezreact/tableroInicialimg/tableroInicialimg.png";
+import ContenedorChessordenado from "./ajedrezreactOrganizado/ajedrezReactOrganizadoimg/ajedrezReactOrganizadoimg.png";
 import { useState } from 'react';
 import { useEffect } from "react";
 
@@ -66,7 +68,7 @@ const [islogged, setloged] = useState(false);
           <div className="juego3">
             <Link to={islogged ? "/Tableroinicial" : "/Login"}>
               <div className="imagen">
-                <img src={juegoesquivar} alt="imgjuegoEsquviar" />
+                <img src={tableroinicial} alt="tableroinicial" />
               </div>
               <div className="texto">
                 <p>Esquiva los obstaculos que llegan de todas las direcciones, el puntaje que consigues aumenta con el tiempo que te mantienes vivo.</p>
@@ -79,6 +81,20 @@ const [islogged, setloged] = useState(false);
 
           <div className="juego3">
             <Link to={islogged ? "/ContenedorChessordenado" : "/Login"}>
+              <div className="imagen">
+                <img src={ContenedorChessordenado} alt="ContenedorChessordenado" />
+              </div>
+              <div className="texto">
+                <p>Esquiva los obstaculos que llegan de todas las direcciones, el puntaje que consigues aumenta con el tiempo que te mantienes vivo.</p>
+              </div>
+              <div >
+              <button className="jugar">Jugar!</button>
+            </div>
+            </Link>
+          </div>
+          
+          <div className="juego3">
+            <Link to={islogged ? "/ContenedorChessComprender" : "/Login"}>
               <div className="imagen">
                 <img src={juegoesquivar} alt="imgjuegoEsquviar" />
               </div>
