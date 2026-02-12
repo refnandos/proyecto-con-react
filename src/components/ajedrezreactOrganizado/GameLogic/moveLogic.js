@@ -36,57 +36,41 @@ const isMoveSafe = (board, fromSquareId, toSquareId, pieceColor) => {
 };
 
 
-const isSquareUnderAttack = (squareId, defenderColor, board) => {
-  const attackerColor = defenderColor === 'blanco' ? 'negro' : 'blanco';
-  const boardCopy = deepCopyArray(board);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const movePiece = (from, to, boardState, castlingAvailability) => {
+  const newBoard = deepCopyArray(boardState);
+  const fromSquare = newBoard.find(sq => sq.squareId === from);
+  const toSquare = newBoard.find(sq => sq.squareId === to);
   
-  // Simular que el defensor tiene un peón en la casilla para detectar ataques
-  const square = boardCopy.find(sq => sq.squareId === squareId);
-  square.pieceColor = defenderColor;
-  square.pieceType = 'peon';
-
-  return isKingInCheck(squareId, defenderColor, boardCopy);
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const movePiece = (fromSquareId, toSquareId, board, castlingAvailability) => {
-  const newBoard = deepCopyArray(board);
-  const fromSquare = newBoard.find(sq => sq.squareId === fromSquareId);
-  const toSquare = newBoard.find(sq => sq.squareId === toSquareId);
-
-  const pieceColor = fromSquare.pieceColor;
-  if (fromSquare.pieceType === 'rey') {
-    castlingAvailability[`${pieceColor}KingSide`] = false;
-    castlingAvailability[`${pieceColor}QueenSide`] = false;
-  } else if (fromSquare.pieceType === 'torre') {
-    const rank = fromSquareId[1];
-    if (fromSquareId === `a${rank}`) castlingAvailability[`${pieceColor}QueenSide`] = false;
-    if (fromSquareId === `h${rank}`) castlingAvailability[`${pieceColor}KingSide`] = false;
-  }
-
+    // Mover el rey (enroque)
   if (fromSquare.pieceType === 'rey' && Math.abs(fromSquareId.charCodeAt(0) - toSquareId.charCodeAt(0)) === 2) {
     handleCastling(newBoard, fromSquareId, toSquareId, fromSquare.pieceColor);
     updateCastlingAvailability(castlingAvailability, fromSquare.pieceColor);
   } else {
+
   // Mover la pieza
   toSquare.pieceColor = fromSquare.pieceColor;
   toSquare.pieceType = fromSquare.pieceType;
-//   toSquare.pieceId = fromSquare.pieceId;
+  toSquare.pieceId = fromSquare.pieceId;
   }
+
+
   // Limpiar casilla de origen
   fromSquare.pieceColor = "blank";
   fromSquare.pieceType = "blank";
@@ -197,17 +181,17 @@ const getCastleMoves = (kingSquareId, pieceColor, board, castlingAvailability) =
 };
 
 
-export const isPathClear = (kingSquareId, rookSquareId, board) => {
-  const [kFile, kRank] = [kingSquareId[0], kingSquareId[1]];
-  const [rFile, rRank] = [rookSquareId[0], rookSquareId[1]];
-  const fileStep = kFile < rFile ? 1 : -1;
+// export const isPathClear = (kingSquareId, rookSquareId, board) => {
+//   const [kFile, kRank] = [kingSquareId[0], kingSquareId[1]];
+//   const [rFile, rRank] = [rookSquareId[0], rookSquareId[1]];
+//   const fileStep = kFile < rFile ? 1 : -1;
 
-  for (let file = kFile.charCodeAt(0) + fileStep; file !== rFile.charCodeAt(0); file += fileStep) {
-    const square = `${String.fromCharCode(file)}${kRank}`;
-    if (!isSquareEmpty(square, board)) return false;
-  }
-  return true;
-};
+//   for (let file = kFile.charCodeAt(0) + fileStep; file !== rFile.charCodeAt(0); file += fileStep) {
+//     const square = `${String.fromCharCode(file)}${kRank}`;
+//     if (!isSquareEmpty(square, board)) return false;
+//   }
+//   return true;
+// };
 
 
 // Filtra movimientos que dejarían al rey en jaque
@@ -358,6 +342,25 @@ const handleEnPassant = (board, startingSquareId, destinationSquareId, pieceColo
 };
 
 // Función auxiliar: enroque
+// const handleCastling = (board, startingSquareId, destinationSquareId, pieceColor) => {
+//     const isKingSide = destinationSquareId.charAt(0) === 'g';
+//     const rank = pieceColor === 'blanco' ? '1' : '8';
+    
+//     const rookStartFile = isKingSide ? 'h' : 'a';
+//     const rookEndFile = isKingSide ? 'f' : 'd';
+    
+//     const rookStartSquare = board.find(sq => sq.squareId === `${rookStartFile}${rank}`);
+//     const rookEndSquare = board.find(sq => sq.squareId === `${rookEndFile}${rank}`);
+    
+//     rookEndSquare.pieceColor = rookStartSquare.pieceColor;
+//     rookEndSquare.pieceType = rookStartSquare.pieceType;
+//     rookEndSquare.pieceId = rookStartSquare.pieceId;
+    
+//     rookStartSquare.pieceColor = "blank";
+//     rookStartSquare.pieceType = "blank";
+//     rookStartSquare.pieceId = "blank";
+// };
+
 const handleCastling = (board, kingFromId, kingToId, pieceColor) => {
   const rank = pieceColor === 'blanco' ? '1' : '8';
   const isKingSide = kingToId[0] === 'g';

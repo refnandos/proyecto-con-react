@@ -65,13 +65,10 @@ const createEmptySquare = (squareId) => {
  * @returns {Object} - Objeto con el estado inicial del juego
  */
 export const initialGameState = () => {
+
      return {
         isWhiteTurn: true,
         castlingAvailability: {
-            blancoKingSide: true,    // Enroque corto (lado del rey)
-            blancoQueenSide: true,   // Enroque largo (lado de la dama)
-            negroKingSide: true,
-            negroQueenSide: true,
             whiteKingSide: true,
             whiteQueenSide: true,
             blackKingSide: true,
