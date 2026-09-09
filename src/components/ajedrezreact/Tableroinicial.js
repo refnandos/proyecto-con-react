@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import /*React,*/ { useState, /*useEffect,*/ useCallback } from "react";
 import "./css/chessStyle.css";
 import torreNegro from "./piezas/Torre-Negro.png";
 import torreBlanco from "./piezas/Torre-Blanco.png";
@@ -738,7 +738,7 @@ export const Tableroinicial = () => {
         }
 
         // Promoción de peón
-        let promotedPiece = piece;
+        // let promotedPiece = piece;
         if (piece.pieceType === 'peon' &&
             (destinationSquareId.charAt(1) === '8' || destinationSquareId.charAt(1) === '1')) {
             // Por defecto promueve a reina (podrías añadir un diálogo para elegir)

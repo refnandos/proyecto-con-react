@@ -1,7 +1,7 @@
 import logo from "../images/NavbarLogo.jpg";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import { IoPerson } from "react-icons/io5";
+// import { IoPerson } from "react-icons/io5";
 
 export const Navbar = ({show, logged}) => {
   return (

@@ -24,7 +24,7 @@ import { ContSnake } from './components/contenedorjuegos/ContSnake';
 import { ContTresRaya } from './components/contenedorjuegos/ContTresRaya';
 import { ContJuegoEsquivar } from "./components/contenedorjuegos/ContJuegoEsquivar";
 import { Tableroinicial } from './components/ajedrezreact/Tableroinicial';
-import { ChessBoard } from './components/ajedrezreactOrganizado/ChessBoard/ChessBoard';
+// import { ChessBoard } from './components/ajedrezreactOrganizado/ChessBoard/ChessBoard';
 import { ContenedorChessordenado } from './components/contenedorjuegos/ContenedorChessordenado';
 import { ContenedorChessComprender } from './components/contenedorjuegos/ContenedorChessComprender';
 

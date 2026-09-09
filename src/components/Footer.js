@@ -1,7 +1,7 @@
 //estilo de enlaces y enlaces funcionales
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import { IoPerson } from "react-icons/io5";
+// import { IoPerson } from "react-icons/io5";
 
 //usado para redirigir al usuario a otra pagina
 import { useNavigate } from 'react-router-dom';

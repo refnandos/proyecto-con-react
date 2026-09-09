@@ -16,24 +16,24 @@ import { deepCopyArray } from '../utils/helpers';
 
 
 
-const isMoveSafe = (board, fromSquareId, toSquareId, pieceColor) => {
-  const boardCopy = deepCopyArray(board);
-  const fromSquare = boardCopy.find(sq => sq.squareId === fromSquareId);
-  const toSquare = boardCopy.find(sq => sq.squareId === toSquareId);
+// const isMoveSafe = (board, fromSquareId, toSquareId, pieceColor) => {
+//   const boardCopy = deepCopyArray(board);
+//   const fromSquare = boardCopy.find(sq => sq.squareId === fromSquareId);
+//   const toSquare = boardCopy.find(sq => sq.squareId === toSquareId);
 
-  // Simular movimiento
-  toSquare.pieceColor = fromSquare.pieceColor;
-  toSquare.pieceType = fromSquare.pieceType;
-  fromSquare.pieceColor = 'blank';
-  fromSquare.pieceType = 'blank';
+//   // Simular movimiento
+//   toSquare.pieceColor = fromSquare.pieceColor;
+//   toSquare.pieceType = fromSquare.pieceType;
+//   fromSquare.pieceColor = 'blank';
+//   fromSquare.pieceType = 'blank';
 
-  // Encontrar la posición del rey (puede haber cambiado si es el rey quien se mueve)
-  const kingSquare = pieceColor === 'blanco' 
-    ? boardCopy.find(sq => sq.pieceType === 'rey' && sq.pieceColor === 'blanco').squareId
-    : boardCopy.find(sq => sq.pieceType === 'rey' && sq.pieceColor === 'negro').squareId;
+//   // Encontrar la posición del rey (puede haber cambiado si es el rey quien se mueve)
+//   const kingSquare = pieceColor === 'blanco' 
+//     ? boardCopy.find(sq => sq.pieceType === 'rey' && sq.pieceColor === 'blanco').squareId
+//     : boardCopy.find(sq => sq.pieceType === 'rey' && sq.pieceColor === 'negro').squareId;
 
-  return !isKingInCheck(kingSquare, pieceColor, boardCopy);
-};
+//   return !isKingInCheck(kingSquare, pieceColor, boardCopy);
+// };
 
 
 

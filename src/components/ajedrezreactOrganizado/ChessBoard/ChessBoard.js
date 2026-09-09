@@ -140,21 +140,21 @@ export const ChessBoard = () => {
     const [boardState, setBoardState] = useState(initialBoardSetup());
     const [isWhiteTurn, setIsWhiteTurn] = useState(true);
     
-    const handlePieceMove = (fromSquareId, toSquareId) => {
-    // Copia profunda del tablero
-    const newBoard = boardState.map(square => ({ ...square }));
+    // const handlePieceMove = (fromSquareId, toSquareId) => {
+    // // Copia profunda del tablero
+    // const newBoard = boardState.map(square => ({ ...square }));
     
-    // Lógica de movimiento (simplificada)
-    const fromSquare = newBoard.find(sq => sq.squareId === fromSquareId);
-    const toSquare = newBoard.find(sq => sq.squareId === toSquareId);
+    // // Lógica de movimiento (simplificada)
+    // const fromSquare = newBoard.find(sq => sq.squareId === fromSquareId);
+    // const toSquare = newBoard.find(sq => sq.squareId === toSquareId);
     
-    toSquare.pieceColor = fromSquare.pieceColor;
-    toSquare.pieceType = fromSquare.pieceType;
-    // ... (resto de la lógica de movimiento)
+    // toSquare.pieceColor = fromSquare.pieceColor;
+    // toSquare.pieceType = fromSquare.pieceType;
+    // // ... (resto de la lógica de movimiento)
 
-    setBoardState(newBoard);
-    setIsWhiteTurn(!isWhiteTurn); // Cambia el turno
-        };
+    // setBoardState(newBoard);
+    // setIsWhiteTurn(!isWhiteTurn); // Cambia el turno
+    //     };
 
     const handleSquareClick = (squareId) => {
   

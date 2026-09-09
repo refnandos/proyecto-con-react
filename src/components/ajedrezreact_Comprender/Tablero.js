@@ -1,20 +1,20 @@
 
 // importacion de las imagenes de las piezas
-import torreNegro from "./piezas/Torre-Negro.png";
-import torreBlanco from "./piezas/Torre-Blanco.png";
-import CaballoNegro from "./piezas/Caballo-Negro.png";
-import CaballoBlanco from "./piezas/Caballo-Blanco.png";
-import AlfilNegro from "./piezas/Alfil-Negro.png";
-import AlfilBlanco from "./piezas/Alfil-Blanco.png";
-import ReyNegro from "./piezas/Rey-Negro.png";
-import ReyBlanco from "./piezas/Rey-Blanco.png";
-import ReinaNegro from "./piezas/Reina-Negro.png";
-import ReinaBlanco from "./piezas/Reina-Blanco.png";
-import PeonNegro from "./piezas/Peon-Negro.png";
-import PeonBlanco from "./piezas/Peon-Blanco.png";
+// import torreNegro from "./piezas/Torre-Negro.png";
+// import torreBlanco from "./piezas/Torre-Blanco.png";
+// import CaballoNegro from "./piezas/Caballo-Negro.png";
+// import CaballoBlanco from "./piezas/Caballo-Blanco.png";
+// import AlfilNegro from "./piezas/Alfil-Negro.png";
+// import AlfilBlanco from "./piezas/Alfil-Blanco.png";
+// import ReyNegro from "./piezas/Rey-Negro.png";
+// import ReyBlanco from "./piezas/Rey-Blanco.png";
+// import ReinaNegro from "./piezas/Reina-Negro.png";
+// import ReinaBlanco from "./piezas/Reina-Blanco.png";
+// import PeonNegro from "./piezas/Peon-Negro.png";
+// import PeonBlanco from "./piezas/Peon-Blanco.png";
 
 // Herramientas a usar
-import React, { useState, useEffect, useCallback } from "react";
+// import React, { useState, useEffect, useCallback } from "react";
 
 // Estilo css
 // import "./css/chessStyle.css";
