@@ -1,9 +1,10 @@
 import { 
     getKnightMoves,
-    checkPawnDiagonalCaptures,
-    getBishopMoves,
-    getRookMoves,
-    getQueenMoves
+    // checkPawnDiagonalCaptures,
+    // checkPawnForwardMoves,
+    // getBishopMoves,
+    // getRookMoves,
+    // getQueenMoves
 } from './moveCalculations';
 import { deepCopyArray } from '../utils/helpers';
 
