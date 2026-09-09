@@ -1,4 +1,4 @@
-import /*React,*/ { useState, /*useEffect,*/ useCallback } from "react";
+import { useState, /*useEffect,*/ useCallback } from "react";
 import "./css/chessStyle.css";
 import torreNegro from "./piezas/Torre-Negro.png";
 import torreBlanco from "./piezas/Torre-Blanco.png";
