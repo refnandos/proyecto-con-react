@@ -165,9 +165,9 @@
 //     return legalSquares;
 // };
 
-// /**
-//  * Movimientos hacia adelante posibles para el peón
-//  */
+// // /**
+// //  * Movimientos hacia adelante posibles para el peón
+// //  */
 // export const checkPawnForwardMoves = (startingSquareId, pieceColor, board) => {
 //     const file = startingSquareId.charAt(0);
 //     const rank = parseInt(startingSquareId.charAt(1));
@@ -420,4 +420,58 @@ export const isPathClear = (kingSquareId, rookSquareId, board) => {
 const isAllyPiece = (squareId, pieceColor, board) => {
   const square = board.find(sq => sq.squareId === squareId);
   return square?.pieceColor === pieceColor;
+};
+export const checkPawnDiagonalCaptures = (startingSquareId, pieceColor, board) => {
+    const file = startingSquareId.charAt(0);
+    const rank = parseInt(startingSquareId.charAt(1));
+    let legalSquares = [];
+
+    const direction = pieceColor === "blanco" ? 1 : -1;
+    const currentRank = rank + direction;
+
+    for (let i = -1; i <= 1; i += 2) {
+        const currentFile = String.fromCharCode(file.charCodeAt(0) + i);
+        if (currentFile >= "a" && currentFile <= "h" && currentRank <= 8 && currentRank >= 1) {
+            const currentSquareId = currentFile + currentRank;
+            const squareContent = getPieceAtSquare(currentSquareId, board);
+            if (squareContent.pieceColor !== "blank" && squareContent.pieceColor !== pieceColor) {
+                legalSquares.push(currentSquareId);
+            }
+        }
+    }
+    
+    return legalSquares;
+};
+
+// /**
+//  * Movimientos hacia adelante posibles para el peón
+//  */
+export const checkPawnForwardMoves = (startingSquareId, pieceColor, board) => {
+    const file = startingSquareId.charAt(0);
+    const rank = parseInt(startingSquareId.charAt(1));
+    let legalSquares = [];
+
+    const direction = pieceColor === "blanco" ? 1 : -1;
+    let currentRank = rank + direction;
+    
+    // Movimiento de una casilla
+    const currentSquareId = file + currentRank;
+    const squareContent = getPieceAtSquare(currentSquareId, board);
+    
+    if (squareContent.pieceColor === "blank") {
+        legalSquares.push(currentSquareId);
+        
+        // Movimiento de dos casillas (solo desde posición inicial)
+        if ((rank === 2 && pieceColor === "blanco") || (rank === 7 && pieceColor === "negro")) {
+            currentRank += direction;
+            const doubleMoveSquareId = file + currentRank;
+            const doubleMoveContent = getPieceAtSquare(doubleMoveSquareId, board);
+            
+            if (doubleMoveContent.pieceColor === "blank") {
+                legalSquares.push(doubleMoveSquareId);
+            }
+        }
+    }
+    
+    return legalSquares;
 };
