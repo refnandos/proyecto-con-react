@@ -1,6 +1,6 @@
 import { 
     getKnightMoves,
-    checkPawnDiagonalCaptures,
+    // checkPawnDiagonalCaptures,
     getBishopMoves,
     getRookMoves,
     getQueenMoves
