@@ -1,12 +1,12 @@
-import { 
-    getKnightMoves, 
-    getBishopMoves, 
-    getRookMoves, 
-    getQueenMoves, 
-    getKingMoves,
-    checkPawnDiagonalCaptures,
-    checkPawnForwardMoves
-} from './moveCalculations';
+// import { 
+//     getKnightMoves, 
+//     getBishopMoves, 
+//     getRookMoves, 
+//     getQueenMoves, 
+//     getKingMoves,
+//     checkPawnDiagonalCaptures,
+//     checkPawnForwardMoves
+// } from './moveCalculations';
 
 
 
