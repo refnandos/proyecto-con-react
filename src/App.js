@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { useEffect } from "react";
 
+/**UPABASE */
+import { supabase } from './components/supabase/supabase'
+
 /*componentes */
 import { Juegos } from './components/Juegos';
 import { Header } from './components/Header';
@@ -35,6 +38,20 @@ function App() {
     if (user) { setIsLoggedIn(true) } else { setIsLoggedIn(false) }
   }, []);
 
+/**SUPABASE */
+
+ const [todos, setTodos] = useState([])
+ useEffect(() => {
+   async function getTodos() {
+     const { data: todos } = await supabase.from('usuarios').select()
+
+      if (todos) {
+        setTodos(todos)
+      }
+    }
+
+    getTodos()
+  }, [])
 
   return (
     <>
@@ -50,6 +67,11 @@ function App() {
         <Navbar show={showNav} logged={islogged} />
 
         <div className='contenedor-comun'>
+          <ul>
+          {todos.map((todo) => (
+            <li key={todo.id_usuario}>{todo.nombre_usuario}</li>
+          ))}
+        </ul>
           {/* botones registro */}
           <Routes>
             <Route path='/Register' exact={true} Component={Register} />
@@ -74,9 +96,12 @@ function App() {
 
             <Route path='/' exact={true} Component={Home} />
           </Routes>
+
+      
+
         </div>
 
-
+        
 
 
         <Footer logged={islogged} />
