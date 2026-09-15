@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { useEffect } from "react";
 
+/*SUPERBASE */
+import { supabase } from './components/supabase/supabase';
+
 /*componentes */
 import { Juegos } from './components/Juegos';
 import { Header } from './components/Header';
@@ -27,6 +30,9 @@ import Register from './components/register/Register';
 
 
 function App() {
+/*SUPERBASE */
+  const [todos, setTodos] = useState([])
+
   const [showNav, setShowNav] = useState(true);
   const [islogged, setIsLoggedIn] = useState(false);
 
@@ -35,6 +41,25 @@ function App() {
     if (user) { setIsLoggedIn(true) } else { setIsLoggedIn(false) }
   }, []);
 
+ /**SUPERBASE */
+
+  useEffect(() => {
+    async function getTodos() {
+      const { data, error } = await supabase
+            .from('usuarios')
+            .select('*')
+
+        if (error) {
+            console.error('Error Supabase:', error)
+            return
+        }
+
+        setTodos(data)
+    }
+    
+
+    getTodos()
+  }, [])
 
   return (
     <>
@@ -75,6 +100,12 @@ function App() {
             <Route path='/' exact={true} Component={Home} />
           </Routes>
         </div>
+        {/* Superbase */}
+        <ul>
+          {todos.map((todo) => (
+            <li key={todo.id_usuario}>{todo.nombre_usuario}</li>
+          ))}
+        </ul>
 
 
 
