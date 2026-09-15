@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import "./snake.css";
 import { useEffect, useRef, useState, useCallback } from 'react';
